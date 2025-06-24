@@ -1,0 +1,56 @@
+    
+/* BUDGET BUDDY CSS */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+/* HEADER */
+.header {
+    /* background-color: #90EE90; */
+    padding: 1px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: solid 4px #2E7D32;
+}
+
+.logo img {
+    width: 100px;     
+    height: auto;       
+    margin-top: 0;
+    /* display: block; */
+    /* object-fit: contain; */
+}
+
+.header-button {
+    background-color: #90EE90;
+    border: solid 1px #2E7D32;
+    border-radius: 6px;
+    color: #388E3C;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    /* margin-left: 20px;
+    padding: 8px 16px;  */
+}
+
+.header-button:hover {
+    background-color: #75c475;
+}
+
+.homeMainText {
+    font-size: 50px;
+    padding: 1px 60px 15px 28px;
+    color: #2E7D32;
+    border-top: solid 4px #2E7D32;
+}
+
+.homeParagraph {
+    font-size: 18px;
+    color: #388E3C;
+    /* padding: top right bottom left */
+    padding: 10px 60px 15px 28px;
+}
