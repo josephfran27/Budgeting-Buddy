@@ -9,42 +9,62 @@
 </head>
 <body>
     <div class="app-container">
+        <!-- APP HEADER -->
         <div class="app-header">
             <img src="./images/full-logo-horizontal.png" alt="Budget Logo" class="app-header-logo">
             <button class="home-button" type="button" onclick="window.location.href='index.html'">Home</button>
         </div>
 
+        <!-- BALANCE CARDS -->
         <div class="dashboard-container">
             <h1 class="dashboard-title">Your Dashboard</h1>
             <div class="dashboard-cards">
                 <div class="card card-balance">
-                    <h3>Balance</h3>
+                    <h2>Balance</h2>
                     <div class="total-amount" id="balance">$0.00</div>
                 </div>
                 <div class="card card-income">
-                    <h3>Total Income</h3>
+                    <h2>Total Income</h2>
                     <div class="total-amount" id="income">$0.00</div>
                 </div>
                 <div class="card card-expenses">
-                    <h3>Total Expenses</h3>
+                    <h2>Total Expenses</h2>
                     <div class="total-amount" id="expenses">$0.00</div>
                 </div>
             </div>
         </div>
 
-        <div class="section update-balance">
-            <h3>Update Balance</h3>
-            <div class="total-amount" id="balance">$0.00</div>
-        </div>
-        <div class="section add-income-section">
-            <h3>Add Income</h3>
-            <div class="total-amount" id="balance">$0.00</div>
-        </div>
-        <div class="section add-expense-section">
-            <h3>Add Expense</h3>
-            <div class="total-amount" id="balance">$0.00</div>
-        </div>
-        </div>
+        <!-- UPDATE SECTIONS -->
+        <div class="update-container">
+            <h2 class="update-title">Update Dashboard</h2 >
+            <div class="section update-balance">
+                <h2>Update Balance</h2>
+                <p>This can be helpful if you want to start fresh or may have missed transactions.</p>
+                <div class="input-container">
+                    $
+                    <input type="number" id="total-amount" step="0.01" placeholder="0.00">
+                </div>
+                <button class="update-button" type="submit">Update Balance</button>
+            </div>
+            <div class="section update-balance">
+                <h2>Add Income</h2>
+                <p>Think about all of the ways that you make money. Think about your main job, side hustles, etc.</p>
+                <div class="input-container">
+                    $
+                    <input type="number" id="total-amount" step="0.01" placeholder="0.00">
+                </div>
+                <button class="update-button" type="submit">Add Income</button>
+            </div>
+            <div class="section update-balance">
+                <h2>Add Expense</h2>
+                <p>The goal is to think as deep as possible for this section. It's hard to track your spending when you 
+                    aren't considering every little thing. (Yes your weekly Chipotle counts)</p>
+                <div class="input-container">
+                    $
+                    <input type="number" id="total-amount" step="0.01" placeholder="0.00">
+                </div>
+                <button class="update-button" type="submit">Add Expense</button>
+            </div>
     </div>
 </body>
 </html>
