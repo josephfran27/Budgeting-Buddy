@@ -170,14 +170,22 @@ body {
     margin: 20px 0;
 }
 
-.input-container {
+.input-container{
+    margin: 15px 0;
+}
+.input-box {
     display: flex;
     align-items: center;
     font-size: 25px;
     gap: 2px;
+    margin-bottom: 15px;
 }
-input {
-    margin: 15px 0;
+
+label {
+    font-weight: 900;
+}
+
+input, select {
     width: 100%;
     padding: 10px;
     border: 2px solid #388E3C;
@@ -185,7 +193,7 @@ input {
     font-size: 18px;
 }
 
-input:focus {
+input:focus, select:focus {
     outline: none;
     border-color: #388E3C;
 }
@@ -193,6 +201,7 @@ input:focus {
 .update-button {
     width: 100%;
     padding: 12px 10px;
+    margin-top: 15px;
     color: #fff;
     background: #388E3C;
     font-family: inherit;

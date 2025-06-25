@@ -42,28 +42,55 @@
                 <p>This can be helpful if you want to start fresh or may have missed transactions.</p>
                 <div class="input-container">
                     $
-                    <input type="number" id="total-amount" step="0.01" placeholder="0.00">
+                    <input type="number" id="total-amount" step="0.01" placeholder="0.00" required>
                 </div>
                 <button class="update-button" type="submit">Update Balance</button>
             </div>
-            <div class="section update-balance">
+            <div class="section update-income">
                 <h2>Add Income</h2>
                 <p>Think about all of the ways that you make money. Think about your main job, side hustles, etc.</p>
                 <div class="input-container">
-                    $
-                    <input type="number" id="total-amount" step="0.01" placeholder="0.00">
+                    <label for="incomeAmount">Amount</label>
+                    <div class="input-box">
+                        <p>$</p>
+                    <input type="number" id="incomeAmount" step="0.01" placeholder="0.00" required>
+                    </div>
+                </div>
+                <div class="income-category">
+                    <label for="incomeCategory">Category</label>
+                    <select id="incomeAmount" required>
+                        <option value="">Select income category</option>
+                        <option value="salary">Salary</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
                 <button class="update-button" type="submit">Add Income</button>
             </div>
-            <div class="section update-balance">
+            <div class="section update-expense">
                 <h2>Add Expense</h2>
-                <p>The goal is to think as deep as possible for this section. It's hard to track your spending when you 
-                    aren't considering every little thing. (Yes your weekly Chipotle counts)</p>
+                <p>The goal is to think as deep as possible for this section. It's hard to track your spending when you aren't 
+                    considering every little thing. (Yes your weekly Chipotle counts)</p>
                 <div class="input-container">
-                    $
-                    <input type="number" id="total-amount" step="0.01" placeholder="0.00">
+                    <label for="expenseAmount">Amount</label>
+                    <div class="input-box">
+                        <p>$</p>
+                    <input type="number" id="expenseAmount" step="0.01" placeholder="0.00" required>
+                    </div>
                 </div>
-                <button class="update-button" type="submit">Add Expense</button>
+                <div class="expense-category">
+                    <label for="expenseCategory">Category</label>
+                    <select id="expenseCategory" required>
+                        <option value="">Select expense category</option>
+                        <option value="salary">Food</option>
+                        <option value="salary">Transportation</option>
+                        <option value="salary">Shopping</option>
+                        <option value="salary">Social</option>
+                        <option value="salary">Bills</option>
+                        <option value="salary">Subscriptions</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button class="update-button" type="submit">Add Income</button>
             </div>
     </div>
 </body>
