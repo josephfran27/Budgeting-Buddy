@@ -28,6 +28,10 @@ const expenseInput = document.getElementById('expenseAmount');
 const expenseCategory = document.getElementById('expenseCategory');
 const expenseForm = document.querySelector('.update-expense');
 
+//transaction form
+const transactionInput = document.getElementById('transactionAmount');
+const transactionForm = document.querySelector('.update-transaction');
+
 //  === DISPLAY UPDATE FUNCTIONS ===
 function updateDisplays() {
     balanceDisplay.textContent = `$${budgetData.totalBalance.toFixed(2)}`;  //round 2 decimals for proper format
@@ -80,6 +84,24 @@ function addExpense(e) {
     updateDisplays();
 }
 
+//add transaction
+function addTransaction(e) {
+    e.preventDefault();
+
+    const amount = parseFloat(transactionInput.value);
+    budgetData.totalBalance -= amount;
+
+    if(budgetData.totalBalance < 0) {
+        balanceDisplay.style.color = '#CD5C5C';
+    }
+    if(budgetData.totalBalance > 0) {
+        balanceDisplay.style.color = '#388E3C';
+    }
+
+    transactionInput.value = '';
+    updateDisplays();
+}
+
 //  === EVENT LISTENERS ===
 document.addEventListener('DOMContentLoaded', function() {
     if(balanceForm) {
@@ -92,6 +114,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if(expenseForm) {
         expenseForm.addEventListener('submit', addExpense);
+    }
+
+    if(transactionForm) {
+        transactionForm.addEventListener('submit', addTransaction);
     }
 });
 
