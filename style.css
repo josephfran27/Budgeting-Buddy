@@ -182,15 +182,27 @@ body {
 }
 
 label {
-    font-weight: 900;
+    font-weight: bold;
 }
 
 input, select {
     width: 100%;
     padding: 10px;
     border: 2px solid #388E3C;
-    border-radius: 12px;
+    border-radius: 6px;
     font-size: 18px;
+}
+
+select {
+    color: #8b8b8b;
+}
+
+select option[value=""] {
+    color:#8b8b8b;
+}
+
+select option:not([value=""]) {
+    color: black;
 }
 
 input:focus, select:focus {

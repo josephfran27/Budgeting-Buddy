@@ -35,6 +35,27 @@ const transactionInput = document.getElementById('transactionAmount');
 const transactionForm = document.querySelector('.update-transaction');
 
 //  === DISPLAY UPDATE FUNCTIONS ===
+//styling for select sections
+function updateSelectColor(select) {
+    if(select.value == '') {
+        select.style.color = '#8b8b8b';
+    }
+    else {
+        select.style.color = 'black';
+    }
+}
+
+function initializeSelectStyling() {
+    const selects = document.querySelectorAll('select');
+    selects.forEach(select => {
+        updateSelectColor(select);
+
+        select.addEventListener('change', function() {
+            updateSelectColor(this);
+        });
+    });
+}
+
 function updateDisplays() {
     balanceDisplay.textContent = `$${budgetData.totalBalance.toFixed(2)}`;  //round 2 decimals for proper format
     incomeDisplay.textContent = `$${budgetData.totalIncome.toFixed(2)}`;
@@ -71,6 +92,10 @@ function addIncome(e) {
     incomeInput.value = '';
     incomeCategory.value = '';
     incomeRecurrence.value = '';
+
+    //update select visual
+    updateSelectColor(incomeCategory);
+    updateSelectColor(incomeRecurrence);
     updateDisplays();
 }
 
@@ -85,6 +110,9 @@ function addExpense(e) {
     expenseInput.value = '';
     expenseCategory.value = '';
     expenseRecurrence.value ='';
+
+    updateSelectColor(incomeCategory);
+    updateSelectColor(incomeRecurrence);
     updateDisplays();
 }
 
@@ -108,16 +136,18 @@ function addTransaction(e) {
 
 //  === EVENT LISTENERS ===
 document.addEventListener('DOMContentLoaded', function() {
+    initializeSelectStyling();
+
     if(balanceForm) {
         balanceForm.addEventListener('submit', updateBalance);
     }
 
     if(incomeForm) {
-        incomeForm.addEventListener('submit', addIncome);
+        incomeForm.addEventListener('submit', addIncome, updateSelectColor(incomeCategory), updateSelectColor(incomeRecurrence));
     }
 
     if(expenseForm) {
-        expenseForm.addEventListener('submit', addExpense);
+        expenseForm.addEventListener('submit', addExpense, updateSelectColor(expenseCategory), updateSelectColor(expenseRecurrence));
     }
 
     if(transactionForm) {
