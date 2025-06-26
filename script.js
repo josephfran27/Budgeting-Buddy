@@ -4,8 +4,11 @@
 let budgetData = {
     totalBalance: 0,
     totalIncome: 0,
-    totalExpenses: 0
+    totalExpenses: 0,
 };
+
+//updates array for storing user updates
+let updates = [];
 
 //  === DOM ELEMENTS ===
 //the three display cards
@@ -37,6 +40,9 @@ const transactionDescription = document.getElementById('transactionTitle');
 const transactionInput = document.getElementById('transactionAmount');
 const transactionForm = document.querySelector('.update-transaction');
 
+//updates list
+const updatesContainer = document.querySelector('.updates-list-container');
+
 //  === DISPLAY UPDATE FUNCTIONS ===
 //styling for select sections
 function updateSelectColor(select) {
@@ -65,6 +71,25 @@ function updateDisplays() {
     expenseDisplay.textContent = `$${budgetData.totalExpenses.toFixed(2)}`;
 }   
 
+function displayUpdates() {
+    updatesContainer.innerHTML = '';
+    updates.forEach((update, index) => {
+        const updateItem = document.createElement('div');
+        updateItem.className = 'update-item';
+        updateItem.innerHTML = 
+            `<span class="update-date">Date: ${update.date}: </span>
+            <span class="update-type">Type: ${update.type}</span>
+            <span class="update-type">, Amount: $${update.amount.toFixed(2)}</span>
+            `
+            if(update.description || update.category || update.recurrence !== null) {
+                `<span class="update-description">, Description: ${update.description}</span>
+                <span class="update-category">, Category: ${update.category}</span>
+                <span class="update-recurrence">, Recurrence: ${update.recurrence}</span>`
+            }
+        updatesContainer.appendChild(updateItem);
+    });
+}
+
 //  === MAIN FUNCTIONS ===
 //update balance
 function updateBalance(e) {
@@ -80,8 +105,18 @@ function updateBalance(e) {
         balanceDisplay.style.color = '#388E3C';
     }
 
+    updates.push({
+        type: 'Balance',
+        description: null,
+        amount: amount,
+        category: null,
+        recurrence: null,
+        date: new Date().toLocaleDateString(),
+    });
+
     balanceInput.value = '';
     updateDisplays();
+    displayUpdates();
 }
 
 //add income
@@ -129,6 +164,7 @@ function addTransaction(e) {
     budgetData.totalBalance -= amount;
 
     if(budgetData.totalBalance < 0) {
+        
         balanceDisplay.style.color = '#CD5C5C';
     }
     if(budgetData.totalBalance > 0) {

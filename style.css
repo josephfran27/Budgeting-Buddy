@@ -234,3 +234,11 @@ input:focus, select:focus {
     background: #2c702f;
     transform: scale(1.01);
 }
+
+/* updates list */
+.updates-list-container {
+    background: #fff;
+    padding: 10px;
+    border: 2px solid #388E3C;
+    border-radius: 6px;
+}
