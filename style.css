@@ -171,7 +171,7 @@ body {
 }
 
 .input-container{
-    margin: 15px 0;
+    flex: 1;
 }
 .input-box {
     display: flex;
@@ -183,6 +183,11 @@ body {
 
 label {
     font-weight: bold;
+}
+
+.dropdownContainer {
+    display: flex;
+    gap: 10px;
 }
 
 input, select {

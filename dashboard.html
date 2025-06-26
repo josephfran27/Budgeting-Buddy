@@ -48,7 +48,7 @@
                     <label for="balanceAmount">Amount</label>
                     <div class="input-box">
                         <p>$</p>
-                    <input type="number" id="balanceAmount" step="0.01" placeholder="0.00" required>
+                        <input type="number" id="balanceAmount" step="0.01" placeholder="0.00" required>
                     </div>
                 </div>
                 <button class="update-button" type="submit">Update Balance</button>
@@ -58,6 +58,13 @@
             <form class="section update-income">
                 <h2>Add Income</h2>
                 <p>Think about all of the ways that you make money. Think about your main job, side hustles, etc.</p>
+                <!-- description input -->
+                <div class="input-container">
+                    <label for="incomeTitle">Description</label>
+                    <div class="input-box">
+                        <input type="text" id="incomeTitle" placeholder="Briefly describe income" required>
+                    </div>
+                </div>
                 <!-- amount input -->
                 <div class="input-container">
                     <label for="incomeAmount">Amount</label>
@@ -93,37 +100,47 @@
                 <h2>Add Expense</h2>
                 <p>The goal is to think as deep as possible for this section. It's hard to track your spending when you aren't 
                     considering every little thing. (Yes your weekly Chipotle counts)</p>
-                <!-- amount input -->
+                 <!-- description input -->
+                 <div class="input-container">
+                    <label for="expenseTitle">Description</label>
+                    <div class="input-box">
+                        <input type="text" id="expenseTitle" placeholder="Briefly describe expense" required>
+                    </div>
+                </div>
+                    <!-- amount input -->
                 <div class="input-container">
                     <label for="expenseAmount">Amount</label>
                     <div class="input-box">
                         <p>$</p>
-                    <input type="number" id="expenseAmount" step="0.01" min=".01" placeholder="0.00" required>
+                        <input type="number" id="expenseAmount" step="0.01" min=".01" placeholder="0.00" required>
                     </div>
                 </div>
-                <!-- category selection -->
-                <div class="input-container">
-                    <label for="expenseCategory">Category</label>
-                    <select id="expenseCategory" required>
-                        <option value="">Select expense category</option>
-                        <option value="food">Food</option>
-                        <option value="transportation">Transportation</option>
-                        <option value="shopping">Shopping</option>
-                        <option value="social">Social</option>
-                        <option value="bills">Bills</option>
-                        <option value="subscriptions">Subscriptions</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <!-- recurrence selection -->
-                <div class="input-container">
-                    <label for="expenseRecurrence">Recurrence</label>
-                    <select id="expenseRecurrence" required>
-                        <option value="">Select expense recurrence</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="monthly">Monthly</option>
-                        <option value="yearly">Yearly</option>
-                    </select>
+                <!-- Dropdown section (for flex) -->
+                <div class="dropdownContainer">
+                    <!-- category selection -->
+                    <div class="input-container">
+                        <label for="expenseCategory">Category</label>
+                        <select id="expenseCategory" required>
+                            <option value="">Select expense category</option>
+                            <option value="food">Food</option>
+                            <option value="transportation">Transportation</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="social">Social</option>
+                            <option value="bills">Bills</option>
+                            <option value="subscriptions">Subscriptions</option>
+                            <option value="other">Other</option>
+                            </select>
+                    </div>
+                    <!-- recurrence selection -->
+                    <div class="input-container">
+                        <label for="expenseRecurrence">Recurrence</label>
+                        <select id="expenseRecurrence" required>
+                            <option value="">Select expense recurrence</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                    </div>
                 </div>
                 <button class="update-button" type="submit">Add Expense</button>
             </form>
@@ -132,6 +149,13 @@
             <form class="section update-transaction">
                 <h2>Add Transaction</h2>
                 <p>Add transactions here. This will subtract from your total balance.</p>
+                <!-- description input -->
+                <div class="input-container">
+                    <label for="transactionTitle">Description</label>
+                    <div class="input-box">
+                        <input type="text" id="transactionTitle" placeholder="Briefly describe transaction" required>
+                    </div>
+                </div>
                 <!-- amount input -->
                 <div class="input-container">
                     <label for="transactionAmount">Amount</label>
