@@ -7,12 +7,13 @@ let budgetData = {
     totalExpenses: 0
 };
 
-//DOM ELEMENTS
+//  === DOM ELEMENTS ===
 //the three display cards
 const balanceDisplay = document.getElementById('balance');
 const incomeDisplay = document.getElementById('income');
+const expenseDisplay = document.getElementById('expenses');
 
-//FORM AND INPUT
+//  === FORM AND INPUT ===
 //balance update form
 const balanceInput = document.getElementById('balanceAmount');
 const balanceForm = document.querySelector('.update-balance');
@@ -22,23 +23,38 @@ const incomeInput = document.getElementById('incomeAmount');
 const incomeCategory = document.getElementById('incomeCategory');
 const incomeForm = document.querySelector('.update-income');
 
-//DISPLAY UPDATE FUNCTIONS
+//expense update form
+const expenseInput = document.getElementById('expenseAmount');
+const expenseCategory = document.getElementById('expenseCategory');
+const expenseForm = document.querySelector('.update-expense');
+
+//  === DISPLAY UPDATE FUNCTIONS ===
 function updateDisplays() {
-    balanceDisplay.textContent = `${budgetData.totalBalance.toFixed(2)}`;  //round 2 decimals for proper format
-    incomeDisplay.textContent = `${budgetData.totalIncome.toFixed(2)}`;
+    balanceDisplay.textContent = `$${budgetData.totalBalance.toFixed(2)}`;  //round 2 decimals for proper format
+    incomeDisplay.textContent = `$${budgetData.totalIncome.toFixed(2)}`;
+    expenseDisplay.textContent = `$${budgetData.totalExpenses.toFixed(2)}`;
 }   
 
-//MAIN FUNCTIONS
+//  === MAIN FUNCTIONS ===
+//update balance
 function updateBalance(e) {
-    e.preventDefault();     //prevents form from submitting normalls (refreshes page)
+    e.preventDefault();     //prevents page refresh
 
     const amount = parseFloat(balanceInput.value);
     budgetData.totalBalance = amount;
+
+    if(budgetData.totalBalance < 0) {
+        balanceDisplay.style.color = '#CD5C5C';
+    }
+    if(budgetData.totalBalance > 0) {
+        balanceDisplay.style.color = '#388E3C';
+    }
 
     balanceInput.value = '';
     updateDisplays();
 }
 
+//add income
 function addIncome(e) {
     e.preventDefault();
 
@@ -51,7 +67,20 @@ function addIncome(e) {
     updateDisplays();
 }
 
-//EVENT LISTENERS
+//add expense
+function addExpense(e) {
+    e.preventDefault();
+
+    const amount = parseFloat(expenseInput.value);
+
+    budgetData.totalExpenses += amount;
+
+    expenseInput.value = '';
+    expenseCategory.value = '';
+    updateDisplays();
+}
+
+//  === EVENT LISTENERS ===
 document.addEventListener('DOMContentLoaded', function() {
     if(balanceForm) {
         balanceForm.addEventListener('submit', updateBalance);
@@ -59,6 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if(incomeForm) {
         incomeForm.addEventListener('submit', addIncome);
+    }
+
+    if(expenseForm) {
+        expenseForm.addEventListener('submit', addExpense);
     }
 });
 
