@@ -62,7 +62,7 @@
                 <div class="input-container">
                     <label for="incomeTitle">Description</label>
                     <div class="input-box">
-                        <input type="text" id="incomeTitle" placeholder="Briefly describe income" required>
+                        <input type="text" id="incomeTitle" placeholder="e.g. 'Job Title'" required>
                     </div>
                 </div>
                 <!-- amount input -->
@@ -73,24 +73,27 @@
                         <input type="number" id="incomeAmount" step="0.01" min=".01" placeholder="0.00" required>
                     </div>
                 </div>
-                <!-- category selection -->
-                <div class="income-container">
-                    <label for="incomeCategory">Category</label>
-                    <select id="incomeCategory" required>
-                        <option value="">Select income category</option>
-                        <option value="salary">Salary</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <!-- recurrence section -->
-                <div class="input-container">
-                    <label for="incomeRecurrence">Recurrence</label>
-                    <select id="incomeRecurrence" required>
-                        <option value="">Select income recurrence</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="monthly">Monthly</option>
-                        <option value="yearly">Yearly</option>
-                    </select>
+                <!-- Dropdown section (for flex) -->
+                <div class="dropdownContainer">
+                    <!-- category selection -->
+                    <div class="input-container">
+                        <label for="incomeCategory">Category</label>
+                        <select id="incomeCategory" required>
+                            <option value="">Select category</option>
+                            <option value="salary">Salary</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <!-- recurrence section -->
+                    <div class="input-container">
+                        <label for="incomeRecurrence">Recurrence</label>
+                        <select id="incomeRecurrence" required>
+                            <option value="">Select recurrence</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                    </div>
                 </div>
                 <button class="update-button" type="submit">Add Income</button>
             </form>
@@ -100,11 +103,11 @@
                 <h2>Add Expense</h2>
                 <p>The goal is to think as deep as possible for this section. It's hard to track your spending when you aren't 
                     considering every little thing. (Yes your weekly Chipotle counts)</p>
-                 <!-- description input -->
-                 <div class="input-container">
+                <!-- description input -->
+                <div class="input-container">
                     <label for="expenseTitle">Description</label>
                     <div class="input-box">
-                        <input type="text" id="expenseTitle" placeholder="Briefly describe expense" required>
+                        <input type="text" id="expenseTitle" placeholder="e.g. Spotify Premium" required>
                     </div>
                 </div>
                     <!-- amount input -->
@@ -121,7 +124,7 @@
                     <div class="input-container">
                         <label for="expenseCategory">Category</label>
                         <select id="expenseCategory" required>
-                            <option value="">Select expense category</option>
+                            <option value="">Select category</option>
                             <option value="food">Food</option>
                             <option value="transportation">Transportation</option>
                             <option value="shopping">Shopping</option>
@@ -135,7 +138,7 @@
                     <div class="input-container">
                         <label for="expenseRecurrence">Recurrence</label>
                         <select id="expenseRecurrence" required>
-                            <option value="">Select expense recurrence</option>
+                            <option value="">Select recurrence</option>
                             <option value="weekly">Weekly</option>
                             <option value="monthly">Monthly</option>
                             <option value="yearly">Yearly</option>
@@ -153,7 +156,7 @@
                 <div class="input-container">
                     <label for="transactionTitle">Description</label>
                     <div class="input-box">
-                        <input type="text" id="transactionTitle" placeholder="Briefly describe transaction" required>
+                        <input type="text" id="transactionTitle" placeholder="e.g. Sneakers" required>
                     </div>
                 </div>
                 <!-- amount input -->

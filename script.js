@@ -19,18 +19,21 @@ const balanceInput = document.getElementById('balanceAmount');
 const balanceForm = document.querySelector('.update-balance');
 
 //income update form
+const incomeDescription = document.getElementById('incomeTitle');
 const incomeInput = document.getElementById('incomeAmount');
 const incomeCategory = document.getElementById('incomeCategory');
 const incomeRecurrence = document.getElementById('incomeRecurrence');
 const incomeForm = document.querySelector('.update-income');
 
 //expense update form
+const expenseDescription = document.getElementById('expenseTitle');
 const expenseInput = document.getElementById('expenseAmount');
 const expenseCategory = document.getElementById('expenseCategory');
 const expenseRecurrence = document.getElementById('expenseRecurrence');
 const expenseForm = document.querySelector('.update-expense');
 
 //transaction form
+const transactionDescription = document.getElementById('transactionTitle');
 const transactionInput = document.getElementById('transactionAmount');
 const transactionForm = document.querySelector('.update-transaction');
 
@@ -89,6 +92,7 @@ function addIncome(e) {
 
     budgetData.totalIncome += amount;
 
+    incomeDescription.value = '';
     incomeInput.value = '';
     incomeCategory.value = '';
     incomeRecurrence.value = '';
@@ -107,12 +111,13 @@ function addExpense(e) {
 
     budgetData.totalExpenses += amount;
 
+    expenseDescription.value = '';
     expenseInput.value = '';
     expenseCategory.value = '';
     expenseRecurrence.value ='';
 
-    updateSelectColor(incomeCategory);
-    updateSelectColor(incomeRecurrence);
+    updateSelectColor(expenseCategory);
+    updateSelectColor(expenseRecurrence);
     updateDisplays();
 }
 
@@ -130,6 +135,7 @@ function addTransaction(e) {
         balanceDisplay.style.color = '#388E3C';
     }
 
+    transactionDescription.value = '';
     transactionInput.value = '';
     updateDisplays();
 }
