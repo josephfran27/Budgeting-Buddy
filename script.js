@@ -21,11 +21,13 @@ const balanceForm = document.querySelector('.update-balance');
 //income update form
 const incomeInput = document.getElementById('incomeAmount');
 const incomeCategory = document.getElementById('incomeCategory');
+const incomeRecurrence = document.getElementById('incomeRecurrence');
 const incomeForm = document.querySelector('.update-income');
 
 //expense update form
 const expenseInput = document.getElementById('expenseAmount');
 const expenseCategory = document.getElementById('expenseCategory');
+const expenseRecurrence = document.getElementById('expenseRecurrence');
 const expenseForm = document.querySelector('.update-expense');
 
 //transaction form
@@ -68,6 +70,7 @@ function addIncome(e) {
 
     incomeInput.value = '';
     incomeCategory.value = '';
+    incomeRecurrence.value = '';
     updateDisplays();
 }
 
@@ -81,6 +84,7 @@ function addExpense(e) {
 
     expenseInput.value = '';
     expenseCategory.value = '';
+    expenseRecurrence.value ='';
     updateDisplays();
 }
 
