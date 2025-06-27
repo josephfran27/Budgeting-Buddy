@@ -73,19 +73,29 @@ function updateDisplays() {
 
 function displayUpdates() {
     updatesContainer.innerHTML = '';
-    updates.forEach((update, index) => {
+    updates.forEach((update) => {
         const updateItem = document.createElement('div');
         updateItem.className = 'update-item';
-        updateItem.innerHTML = 
-            `<span class="update-date">Date: ${update.date}: </span>
-            <span class="update-type">Type: ${update.type}</span>
-            <span class="update-type">, Amount: $${update.amount.toFixed(2)}</span>
-            `
-            if(update.description || update.category || update.recurrence !== null) {
-                `<span class="update-description">, Description: ${update.description}</span>
-                <span class="update-category">, Category: ${update.category}</span>
-                <span class="update-recurrence">, Recurrence: ${update.recurrence}</span>`
-            }
+
+        let updateHTML = 
+        `<span class="update-date">• Date: ${update.date}: </span>
+        <span class="update-type">Type: ${update.type}</span>
+        <span class="update-type">, Amount: $${update.amount.toFixed(2)}</span>`;
+            
+        //specifically targets transactions
+        if(update.description !== null) {
+            updateHTML += `<span class="update-description">, Description: ${update.description}</span>`;
+        }
+                
+        //specifically targets income/expense
+        if(update.category !== null) {
+            updateHTML += `<span class="update-category">, Category: ${update.category}</span>`;
+        } 
+        if (update.recurrence !== null) {
+            updateHTML += `<span class="update-recurrence">, Recurrence: ${update.recurrence}</span>`;
+        }
+
+        updateItem.innerHTML = updateHTML;
         updatesContainer.appendChild(updateItem);
     });
 }
@@ -124,8 +134,20 @@ function addIncome(e) {
     e.preventDefault();
 
     const amount = parseFloat(incomeInput.value);
+    const description = incomeDescription.value;
+    const category = incomeCategory.value;
+    const recurrence = incomeRecurrence.value;
 
     budgetData.totalIncome += amount;
+
+    updates.push({
+        type: 'Income',
+        description: description,
+        amount: amount,
+        category: category,
+        recurrence: recurrence,
+        date: new Date().toLocaleDateString()
+    });
 
     incomeDescription.value = '';
     incomeInput.value = '';
@@ -136,6 +158,7 @@ function addIncome(e) {
     updateSelectColor(incomeCategory);
     updateSelectColor(incomeRecurrence);
     updateDisplays();
+    displayUpdates();
 }
 
 //add expense
@@ -143,8 +166,20 @@ function addExpense(e) {
     e.preventDefault();
 
     const amount = parseFloat(expenseInput.value);
+    const description = expenseDescription.value;
+    const category = expenseCategory.value;
+    const recurrence = expenseRecurrence.value;
 
     budgetData.totalExpenses += amount;
+
+    updates.push({
+        type: 'Expense',
+        description: description,
+        amount: amount,
+        category: category,
+        recurrence: recurrence,
+        date: new Date().toLocaleDateString()
+    });
 
     expenseDescription.value = '';
     expenseInput.value = '';
@@ -154,6 +189,7 @@ function addExpense(e) {
     updateSelectColor(expenseCategory);
     updateSelectColor(expenseRecurrence);
     updateDisplays();
+    displayUpdates();
 }
 
 //add transaction
@@ -161,6 +197,8 @@ function addTransaction(e) {
     e.preventDefault();
 
     const amount = parseFloat(transactionInput.value);
+    const description = transactionDescription.value;
+
     budgetData.totalBalance -= amount;
 
     if(budgetData.totalBalance < 0) {
@@ -171,9 +209,19 @@ function addTransaction(e) {
         balanceDisplay.style.color = '#388E3C';
     }
 
+    updates.push({
+        type: 'Transaction',
+        description: description,
+        amount: amount,
+        category: null,
+        recurrence: null,
+        date: new Date().toLocaleDateString()
+    });
+
     transactionDescription.value = '';
     transactionInput.value = '';
     updateDisplays();
+    displayUpdates();
 }
 
 //  === EVENT LISTENERS ===
