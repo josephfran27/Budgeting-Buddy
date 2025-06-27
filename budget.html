@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budget</title>
+    <title>Budgeting Buddy - Budget</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="./images/logo.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 <body>
     <div class="container">
@@ -25,7 +26,68 @@
 
         <div class="page-container">
             <h1 class="page-title">Budget</h1>
-            
+            <!-- DATA CHART -->
+            <div class="chart-container">
+                <canvas id="myChart" style="width: 100%; max-width: 700px;"></canvas>
+            </div>
+
+            </form>
+            <div class="update-container">
+                <h2 class="update-title">Budgeting Templates</h2 >
+            </div>
+            <form class="section update-templates">
+                <h2>This can be helpful if you want to start fresh or may have missed transactions.</h2>
+                <!-- amount input -->
+                <div class="template-container">
+                    <label for="update-template">50/30/20 Rule</label>
+                    <p>Update Here</p>
+                </div>
+                <button class="update-button" type="submit">Apply</button>
+            </form>
+
+            <div class="update-container">
+                <h2 class="update-title">Custom</h2 >
+            </div>
+            <form class="section update-balance">
+                <h2>Build your own budgeting strategy to adhere to your budgeting goals.</h2>
+                <!-- percentage input -->
+                <label for="expense-container">Expense Percentages</label>
+                <div class="dropdownContainer">
+                    <!-- percentage section -->
+                    <div class="input-container">
+                        <label for="expenseAmount">Food</label>
+                        <div class="input-box">
+                            <p>%</p>
+                            <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
+                        </div>
+                        <label for="expenseAmount">Transportation</label>
+                        <div class="input-box">
+                            <p>%</p>
+                            <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
+                        </div>
+                        <label for="expenseAmount">Social</label>
+                        <div class="input-box">
+                            <p>%</p>
+                            <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
+                        </div>
+                        <label for="expenseAmount">Bills</label>
+                        <div class="input-box">
+                            <p>%</p>
+                            <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
+                        </div>
+                        <label for="expenseAmount">Personal</label>
+                        <div class="input-box">
+                            <p>%</p>
+                            <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
+                        </div>
+                        <label for="expenseAmount">Other</label>
+                        <div class="input-box">
+                            <p>%</p>
+                            <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
+                        </div>
+                    </div>
+                </div>
+                <button class="update-button" type="submit">Apply</button>
         </div>
     </div>
 

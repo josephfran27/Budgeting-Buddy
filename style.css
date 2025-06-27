@@ -225,3 +225,10 @@ input:focus, select:focus {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
+/* BUDGET PAGE */
+.template-container {
+    padding: 10px;
+    border: 2px solid #388E3C;
+    border-radius: 6px;
+}
