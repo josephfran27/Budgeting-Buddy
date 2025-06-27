@@ -1,5 +1,6 @@
 
 
+// DASHBOARD SECTION
 //data structure: Object for holding data about budget
 let budgetData = {
     totalBalance: 0,
@@ -244,4 +245,6 @@ document.addEventListener('DOMContentLoaded', function() {
         transactionForm.addEventListener('submit', addTransaction);
     }
 });
+
+// BUDGETING SECTION
 

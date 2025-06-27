@@ -145,6 +145,14 @@ body {
     margin: 20px 0;
 }
 
+.section h2 {
+    margin-bottom: 20px;
+}
+
+.section p {
+    margin-bottom: 20px;
+}
+
 .input-container{
     flex: 1;
 }
@@ -228,6 +236,7 @@ input:focus, select:focus {
 
 /* BUDGET PAGE */
 .template-container {
+    margin-top: 15px;
     padding: 10px;
     border: 2px solid #388E3C;
     border-radius: 6px;

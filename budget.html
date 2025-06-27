@@ -31,56 +31,73 @@
                 <canvas id="myChart" style="width: 100%; max-width: 700px;"></canvas>
             </div>
 
-            </form>
+            <!-- BUDGETING PERCENTAGE TEMPLATES -->
             <div class="update-container">
                 <h2 class="update-title">Budgeting Templates</h2 >
             </div>
-            <form class="section update-templates">
-                <h2>This can be helpful if you want to start fresh or may have missed transactions.</h2>
-                <!-- amount input -->
+            <div class="section update-templates">
+                <h2>Popular budgeting templates to simplify and set up your budgeting. This applies monthly.</h2>
+                <!-- 50/30/20 Rule -->
                 <div class="template-container">
                     <label for="update-template">50/30/20 Rule</label>
-                    <p>Update Here</p>
+                    <p>•50%: Needs (Bills, Food, Transportation)</p>
+                    <p>•30%: Wants (Social, Personal)</p>
+                    <p>•20%: Savings</p>
+                    <button class="update-button" type="submit">Apply</button>
                 </div>
-                <button class="update-button" type="submit">Apply</button>
-            </form>
+                <!-- 60/20/20 Rule -->
+                <div class="template-container">
+                    <label for="update-template">60/20/20 Rule</label>
+                    <p>•60%: Needs (Bills, Food, Transportation)</p>
+                    <p>•20%: Wants (Social, Personal)</p>
+                    <p>•20%: Savings</p>
+                    <button class="update-button" type="submit">Apply</button>
+                </div>
+                <!-- 80/20 Rule -->
+                <div class="template-container">
+                    <label for="update-template">80/20 Rule</label>
+                    <p>•80%: Needs & Wants (Bills, Food, Transportation, Social, Personal)</p>
+                    <p>•20%: Savings</p>
+                    <button class="update-button" type="submit">Apply</button>
+                </div>
+            </div>
 
+            <!-- CUSTOM PERCENTAGES -->
             <div class="update-container">
                 <h2 class="update-title">Custom</h2 >
             </div>
             <form class="section update-balance">
                 <h2>Build your own budgeting strategy to adhere to your budgeting goals.</h2>
                 <!-- percentage input -->
-                <label for="expense-container">Expense Percentages</label>
                 <div class="dropdownContainer">
                     <!-- percentage section -->
                     <div class="input-container">
-                        <label for="expenseAmount">Food</label>
+                        <label for="expenseAmount">Bills (Need)</label>
                         <div class="input-box">
                             <p>%</p>
                             <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
                         </div>
-                        <label for="expenseAmount">Transportation</label>
+                        <label for="expenseAmount">Food (Need)</label>
                         <div class="input-box">
                             <p>%</p>
                             <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
                         </div>
-                        <label for="expenseAmount">Social</label>
+                        <label for="expenseAmount">Transportation (Need)</label>
                         <div class="input-box">
                             <p>%</p>
                             <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
                         </div>
-                        <label for="expenseAmount">Bills</label>
+                        <label for="expenseAmount">Social (Want)</label>
                         <div class="input-box">
                             <p>%</p>
                             <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
                         </div>
-                        <label for="expenseAmount">Personal</label>
+                        <label for="expenseAmount">Personal (Want)</label>
                         <div class="input-box">
                             <p>%</p>
                             <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
                         </div>
-                        <label for="expenseAmount">Other</label>
+                        <label for="expenseAmount">Savings</label>
                         <div class="input-box">
                             <p>%</p>
                             <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
