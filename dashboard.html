@@ -8,17 +8,25 @@
     <link rel="icon" type="image/png" href="./images/logo.png">
 </head>
 <body>
-    <div class="dashboard-main-container">
+    <div class="container">
 
         <!-- DASHBOARD HEADER -->
-        <div class="dashboard-header">
-            <img src="./images/full-logo-horizontal.png" alt="Budget Logo" class="dashboard-header-logo">
-            <button class="home-button" type="button" onclick="window.location.href='index.html'">Home</button>
+        <div class="page-header">
+            <div class="links">
+                <button class="header-button" type="button" onclick="window.location.href='index.html'">Home</button>
+                <button class="header-button" type="button" onclick="window.location.href='dashboard.html'">Dashboard</button>
+            </div>
+            <img src="./images/full-logo-horizontal.png" alt="Budget Logo" class="page-header-logo">
+            <div class="links">
+                <button class="header-button" type="button" onclick="window.location.href='budget.html'">Budget</button>
+                <button class="header-button" type="button" onclick="window.location.href='savings.html'">Savings</button>
+            </div>
         </div>
 
         <!-- BALANCE CARDS -->
-        <div class="dashboard-container">
-            <h1 class="dashboard-title">Your Dashboard</h1>
+        <!-- page container reused for shared styles accross pages -->
+        <div class="page-container">
+            <h1 class="page-title">Dashboard</h1>
             <div class="dashboard-cards">
                 <div class="card card-balance">
                     <h2>Balance</h2>
@@ -36,6 +44,7 @@
         </div>
 
         <!-- UPDATE SECTIONS -->
+        <!-- update container, only for this page -->
         <div class="update-container">
             <h2 class="update-title">Update Dashboard</h2 >
 
@@ -174,7 +183,7 @@
                 <h2>Updates List</h2>
                 <p>Displays all of your updates.</p>
                 <div class="updates-list-container">
-                    
+
                 </div>
             </div>
     </div>
