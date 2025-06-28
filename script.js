@@ -135,11 +135,27 @@ function addIncome(e) {
     e.preventDefault();
 
     const amount = parseFloat(incomeInput.value);
+    let amountCalculated;
     const description = incomeDescription.value;
     const category = incomeCategory.value;
     const recurrence = incomeRecurrence.value;
 
-    budgetData.totalIncome += amount;
+    //weekly pay calculated to monthly
+    if(recurrence === 'weekly') {
+        amountCalculated = (amount * 52) / 12;
+    }
+    //yearly
+    else if(recurrence === 'yearly') {
+        amountCalculated = amount / 12;
+    }
+    //monthly
+    else {
+        amountCalculated = amount;
+    }
+
+
+
+    budgetData.totalIncome += amountCalculated;
 
     updates.push({
         type: 'Income',
@@ -228,6 +244,8 @@ function addTransaction(e) {
 //  === EVENT LISTENERS ===
 document.addEventListener('DOMContentLoaded', function() {
     initializeSelectStyling();
+    // for budget page
+    initializeBudgetPage();
 
     if(balanceForm) {
         balanceForm.addEventListener('submit', updateBalance);
@@ -247,4 +265,143 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // BUDGETING SECTION
+let budgetPercentages = {
+    bills: 25,
+    food: 15,
+    transportation: 10,
+    social: 20,
+    personal: 10,
+    savings: 20
+};
 
+let budgetChart;
+
+//initializes page
+function initializeBudgetPage() {
+    const chartCanvas = document.getElementById('myChart');
+    if(chartCanvas) {
+        initializeBudgetChart();
+        setUpTemplateButtons();
+    }
+}
+
+//initializes chart
+function initializeBudgetChart() {
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    budgetChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Bills', 'Food', 'Transportation', 'Social', 'Personal', 'Savings'],
+            datasets: [{
+                data: [
+                    budgetPercentages.bills,            //need
+                    budgetPercentages.food,             //need
+                    budgetPercentages.transportation,   //need
+                    budgetPercentages.social,           //want
+                    budgetPercentages.personal,         //want
+                    budgetPercentages.savings           //savings
+                ],
+                backgroundColor: [
+                    '#2c702f',
+                    '#2c702f',
+                    '#2c702f',
+                    '#46b24c',
+                    '#46b24c',
+                    '#C1F6C1'
+                ],
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,   //chart resizes according to container
+            maintainAspectRatio: false, //chart fills container height
+            legend: {
+                    position: 'bottom',
+                    //legend styling
+                    labels: {
+                        padding: 20,
+                        usePointStyle: true //circle instead of square
+                    }
+                },
+                tooltips: {
+                    callbacks: {
+                        // Display stats upon hover
+                        label: function(tooltipItem, data) {
+                            var label = data.labels[tooltipItem.index];
+                            var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                            return label + ': ' + value + '%';
+                        }
+                    }
+                }
+        }
+    });
+}
+
+function updateChart(newData) {
+    budgetPercentages = newData;
+    budgetChart.data.datasets[0].data = [
+        budgetPercentages.bills,
+        budgetPercentages.food,
+        budgetPercentages.transportation,
+        budgetPercentages.social,
+        budgetPercentages.personal,
+        budgetPercentages.savings
+    ];
+    budgetChart.update();
+}
+
+function setUpTemplateButtons() {
+    const templateButtons = document.querySelectorAll('.template-container .update-button');
+
+    templateButtons.forEach((button, index) => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            let newBudget;
+            let pageTitle = document.getElementById('budget-page-title');
+
+            switch(index) {
+                // 50/30/20 rule
+                case 0:
+                    //change title and percentage divisions
+                    pageTitle.textContent = 'Budget: 50/30/20 Rule';
+                    newBudget = {
+                        bills: 25,
+                        food: 15,
+                        transportation: 10,
+                        social: 20,
+                        personal: 10,
+                        savings: 20
+                    };
+                    break;
+                // 60/20/20 rule
+                case 1:
+                    pageTitle.textContent = 'Budget: 60/20/20 Rule';
+                    newBudget = {
+                        bills: 30,
+                        food: 20,
+                        transportation: 10,
+                        social: 10,
+                        personal: 10,
+                        savings: 20
+                    };
+                    break;
+                //80/20 rule
+                case 2:
+                    pageTitle.textContent = 'Budget: 80/20 Rule';
+                    newBudget = {
+                        bills: 30,
+                        food: 20,
+                        transportation: 15,
+                        social: 10,
+                        personal: 5,
+                        savings: 20
+                    };
+                    break;
+            }
+            updateChart(newBudget);
+        });
+    });
+}

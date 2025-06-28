@@ -25,21 +25,33 @@
         </div>
 
         <div class="page-container">
-            <h1 class="page-title">Budget</h1>
+            <h1 id="budget-page-title">Budget: 50/30/20 Rule</h1>
+            <!-- INCOME & EXPENSE DISPLAY -->
+            <div class="section income-expense">
+                <div class="income-expense-display">
+                    <label for="update-template">Monthly Income</label>
+                    <p>$5,000</p>
+                </div>
+                <div class="income-expense-display">
+                    <label for="update-template">Monthly Expenses</label>
+                    <p>$5,000</p>
+                </div>
+            </div>
             <!-- DATA CHART -->
             <div class="chart-container">
                 <canvas id="myChart" style="width: 100%; max-width: 700px;"></canvas>
             </div>
+            <p class="chart-description">Hover over pieces to view expense</p>
 
             <!-- BUDGETING PERCENTAGE TEMPLATES -->
             <div class="update-container">
                 <h2 class="update-title">Budgeting Templates</h2 >
             </div>
             <div class="section update-templates">
-                <h2>Popular budgeting templates to simplify and set up your budgeting. This applies monthly.</h2>
+                <h3>Popular budgeting templates to simplify and set up your budgeting. This applies monthly.</h3>
                 <!-- 50/30/20 Rule -->
                 <div class="template-container">
-                    <label for="update-template">50/30/20 Rule</label>
+                    <label for="update-template">50/30/20 Rule (Default)</label>
                     <p>•50%: Needs (Bills, Food, Transportation)</p>
                     <p>•30%: Wants (Social, Personal)</p>
                     <p>•20%: Savings</p>
@@ -67,7 +79,7 @@
                 <h2 class="update-title">Custom</h2 >
             </div>
             <form class="section update-balance">
-                <h2>Build your own budgeting strategy to adhere to your budgeting goals.</h2>
+                <h3>Build your own budgeting strategy to adhere to your budgeting goals.</h3>
                 <!-- percentage input -->
                 <div class="dropdownContainer">
                     <!-- percentage section -->
