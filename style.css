@@ -253,9 +253,9 @@ input:focus, select:focus {
     text-align: center;
     display: flex;
     justify-content: center;
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 auto;
-    gap: 10px;
+    gap: 30px;
 }
 
 .income-expense p {
@@ -278,7 +278,7 @@ input:focus, select:focus {
 }
 
 .chart-description {
-    margin: 20px 0;
+    margin: 10px 0;
     text-align: center;
     font-weight: bold;
 }

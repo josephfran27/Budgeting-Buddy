@@ -372,6 +372,9 @@ function setUpTemplateButtons() {
         button.addEventListener('click', function(e) {
             e.preventDefault();
 
+            // let income = budgetData.totalIncome;
+            // let expenses = budgetData.totalExpenses;
+
             let newBudget;
             let pageTitle = document.getElementById('budget-page-title');
 
