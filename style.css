@@ -249,7 +249,7 @@ input:focus, select:focus {
     gap: 10px;
 }
 
-.income-expense {
+.income-display {
     text-align: center;
     display: flex;
     justify-content: center;
@@ -258,7 +258,7 @@ input:focus, select:focus {
     gap: 30px;
 }
 
-.income-expense p {
+.income p {
     font-size: 2em;
 }
 

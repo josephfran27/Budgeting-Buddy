@@ -70,6 +70,11 @@ function updateDisplays() {
     balanceDisplay.textContent = `$${budgetData.totalBalance.toFixed(2)}`;  //round 2 decimals for proper format
     incomeDisplay.textContent = `$${budgetData.totalIncome.toFixed(2)}`;
     expenseDisplay.textContent = `$${budgetData.totalExpenses.toFixed(2)}`;
+
+    // FOR UPDATING BUDGET CHART WITH DATA
+    if(budgetChart && budgetData.totalIncome > 0) {
+        updateBudgetAllocations();
+    }
 }   
 
 function displayUpdates() {
@@ -186,6 +191,7 @@ function addExpense(e) {
     const description = expenseDescription.value;
     const category = expenseCategory.value;
     const recurrence = expenseRecurrence.value;
+    let amountCalculated;
 
     //weekly pay calculated to monthly
     if(recurrence === 'weekly') {
@@ -254,10 +260,60 @@ function addTransaction(e) {
     displayUpdates();
 }
 
+// === FOR BUDGETING MATH ===
+//calculates a dollar amount for each budgeting category based on income
+function calculateBudgetAllocations() {
+    const income = budgetData.totalIncome;
+
+    // edge case handling
+    if(income <= 0) {
+        return {
+            bills: 0,
+            food: 0,
+            transportation: 0,
+            social: 0,
+            personal: 0,
+            savings: 0
+        };
+    }
+
+    // get dollar amount per category according to percentage
+    return {
+        bills: (income * budgetPercentages.bills) / 100,
+        food: (income * budgetPercentages.food) / 100,
+        transportation: (income * budgetPercentages.transportation) / 100,
+        social: (income * budgetPercentages.social) / 100,
+        personal: (income * budgetPercentages.personal) / 100,
+        savings: (income * budgetPercentages.savings) / 100
+    };
+}
+
+//updates chart data with dollar amounts
+function updateBudgetAllocations() {
+    if(!budgetChart) {
+        return;
+    }
+
+    const allocations = calculateBudgetAllocations();
+
+    budgetChart.data.datasets[0].data = [
+        budgetPercentages.bills,
+        budgetPercentages.food,
+        budgetPercentages.transportation,
+        budgetPercentages.social,
+        budgetPercentages.personal,
+        budgetPercentages.savings
+    ];
+
+    budgetChart.allocations = allocations;
+    budgetChart.update();
+}
+
+
 //  === EVENT LISTENERS ===
 document.addEventListener('DOMContentLoaded', function() {
     initializeSelectStyling();
-    // for budget page
+    
     initializeBudgetPage();
 
     if(balanceForm) {
@@ -340,16 +396,28 @@ function initializeBudgetChart() {
                 },
                 tooltips: {
                     callbacks: {
-                        // Display stats upon hover
+                        // update stats display to include dollar amount
                         label: function(tooltipItem, data) {
-                            var label = data.labels[tooltipItem.index];
-                            var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                            return label + ': ' + value + '%';
+                            const label = data.labels[tooltipItem.index];
+                            const percentage = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                            
+                            if(budgetChart.allocations) {
+                                const categories = ['bills', 'food', 'transportation', 'social', 'personal', 'savings'];
+                                const categoryKey = categories[tooltipItem.index];
+                                const dollarAmount = budgetChart.allocations[categoryKey];
+
+                                return `${label} (${percentage}%): $${dollarAmount.toFixed(2)}`;
+                            }
+                            return `${label}: ${percentage}%`;
                         }
                     }
                 }
         }
     });
+
+    if(budgetData.totalIncome > 0) {
+        updateBudgetAllocations();
+    }
 }
 
 function updateChart(newData) {
@@ -362,7 +430,8 @@ function updateChart(newData) {
         budgetPercentages.personal,
         budgetPercentages.savings
     ];
-    budgetChart.update();
+    
+    updateBudgetAllocations();
 }
 
 function setUpTemplateButtons() {
@@ -371,9 +440,6 @@ function setUpTemplateButtons() {
     templateButtons.forEach((button, index) => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
-
-            // let income = budgetData.totalIncome;
-            // let expenses = budgetData.totalExpenses;
 
             let newBudget;
             let pageTitle = document.getElementById('budget-page-title');
@@ -422,4 +488,4 @@ function setUpTemplateButtons() {
     });
 }
 
-//implement
+
