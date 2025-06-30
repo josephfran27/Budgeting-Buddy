@@ -149,7 +149,7 @@ function addIncome(e) {
         amountCalculated = amount / 12;
     }
     //monthly
-    else {
+    else { 
         amountCalculated = amount;
     }
 
