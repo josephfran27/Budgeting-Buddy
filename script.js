@@ -187,7 +187,20 @@ function addExpense(e) {
     const category = expenseCategory.value;
     const recurrence = expenseRecurrence.value;
 
-    budgetData.totalExpenses += amount;
+    //weekly pay calculated to monthly
+    if(recurrence === 'weekly') {
+        amountCalculated = (amount * 52) / 12;
+    }
+    //yearly
+    else if(recurrence === 'yearly') {
+        amountCalculated = amount / 12;
+    }
+    //monthly
+    else { 
+        amountCalculated = amount;
+    }
+
+    budgetData.totalExpenses += amountCalculated;
 
     updates.push({
         type: 'Expense',
@@ -405,3 +418,5 @@ function setUpTemplateButtons() {
         });
     });
 }
+
+//implement
