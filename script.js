@@ -92,6 +92,11 @@ const transactionDescription = document.getElementById('transactionTitle');
 const transactionInput = document.getElementById('transactionAmount');
 const transactionForm = document.querySelector('.update-transaction');
 
+//one-time income form
+const oneTimeDescription = document.getElementById('oneTimeTitle');
+const oneTimeInput = document.getElementById('oneTimeAmount');
+const oneTimeForm = document.querySelector('.update-one-time-income');
+
 //updates list
 const updatesContainer = document.querySelector('.updates-list-container');
 
@@ -157,7 +162,7 @@ function displayUpdates() {
         <span class="update-type">Type: ${update.type}</span>
         <span class="update-type">, Amount: $${update.amount.toFixed(2)}</span>`;
             
-        //specifically targets transactions
+        //specifically targets transactions and one-time income
         if(update.description !== null) {
             updateHTML += `<span class="update-description">, Description: ${update.description}</span>`;
         }   
@@ -326,6 +331,38 @@ function addTransaction(e) {
     displayUpdates();
 }
 
+//add one-time income
+function addOneTimeIncome(e) {
+    e.preventDefault();
+
+    const amount = parseFloat(oneTimeInput.value);
+    const description = oneTimeDescription.value;
+
+    budgetData.totalBalance += amount;
+
+    if(budgetData.totalBalance < 0) {
+        
+        balanceDisplay.style.color = '#CD5C5C';
+    }
+    if(budgetData.totalBalance > 0) {
+        balanceDisplay.style.color = '#388E3C';
+    }
+
+    updates.push({
+        type: 'One-Time Income',
+        description: description,
+        amount: amount,
+        category: null,
+        recurrence: null,
+        date: new Date().toLocaleDateString()
+    });
+
+    oneTimeDescription.value = '';
+    oneTimeInput.value = '';
+    updateDisplays();
+    displayUpdates();
+}
+
 // === FOR BUDGETING MATH ===
 //calculates a dollar amount for each budgeting category based on income
 function calculateBudgetAllocations() {
@@ -404,6 +441,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if(transactionForm) {
         transactionForm.addEventListener('submit', addTransaction);
+    }
+
+    if(oneTimeForm) {
+        oneTimeForm.addEventListener('submit', addOneTimeIncome);
     }
 });
 
