@@ -239,21 +239,12 @@ input:focus, select:focus {
     margin: 20px 0;
     text-align: center;
 }
-.income-expense-display {
-    background-color: #C1F6C1;
-    margin-top: 0 auto;
-    padding: 10px;
-    border: 2px solid #388E3C;
-    border-radius: 6px;
-    position: relative;
-    gap: 10px;
-}
 
 .income-display {
     text-align: center;
     display: flex;
     justify-content: center;
-    max-width: 500px;
+    max-width: 250px;
     margin: 0 auto;
     gap: 30px;
 }

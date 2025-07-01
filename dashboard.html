@@ -90,6 +90,8 @@
                         <select id="incomeCategory" required>
                             <option value="">Select category</option>
                             <option value="salary">Salary</option>
+                            <option value="wage">Wage</option>
+                            <option value="passive">Passive</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
@@ -176,6 +178,30 @@
                     </div>
                 </div>
                 <button class="update-button" type="submit">Add Transaction</button>
+            </form>
+
+            <!-- ADD ONE TIME INCOME -->
+            <form class="section update-transaction">
+                <h2>One-time Income</h2>
+                <p>Add a one-time income source. This is helpful for random forms of income that don't get added to your
+                    monthly number.
+                </p>
+                <!-- description input -->
+                <div class="input-container">
+                    <label for="oneTimeTitle">Description</label>
+                    <div class="input-box">
+                        <input type="text" id="oneTimeTitle" placeholder="e.g. Gift" required>
+                    </div>
+                </div>
+                <!-- amount input -->
+                <div class="input-container">
+                    <label for="oneTimeAmount">Amount</label>
+                    <div class="input-box">
+                        <p>$</p>
+                    <input type="number" id="oneTimeAmount" step="0.01" placeholder="0.00" required>
+                    </div>
+                </div>
+                <button class="update-button" type="submit">Add One-time Income</button>
             </form>
             
             <div class="section updates-list">

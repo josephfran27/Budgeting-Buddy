@@ -11,6 +11,57 @@ let budgetData = {
 //updates array for storing user updates
 let updates = [];
 
+//load data 
+function loadDataFromMemory() {
+    //load from localStorage for data persistence per session
+    try {
+        const savedBudgetData = sessionStorage.getItem('budgetData');
+        const savedUpdates = sessionStorage.getItem('updates');
+        const savedBudgetPercentages = sessionStorage.getItem('budgetPercentages');
+
+        if(savedBudgetData) {
+            budgetData = JSON.parse(savedBudgetData);
+        }
+        if(savedUpdates) {
+            updates = JSON.parse(savedUpdates);
+        }
+        if(savedBudgetPercentages) {
+            budgetPercentages = JSON.parse(savedBudgetPercentages);
+        }
+    }
+    //if error, reset data
+    catch(error) {
+        console.error('Error loading data:', error);
+
+        budgetData = {
+            totalBalance: 0,
+            totalIncome: 0,
+            totalExpenses: 0,
+        };
+        updates = [];
+        budgetPercentages = {
+            bills: 25,
+            food: 15,
+            transportation: 10,
+            social: 20,
+            personal: 10,
+            savings: 20
+        };
+    }
+}
+
+//save data to localStorage
+function saveDataToMemory() {
+    try {
+        sessionStorage.setItem('budgetData', JSON.stringify(budgetData));
+        sessionStorage.setItem('updates', JSON.stringify(updates));
+        sessionStorage.setItem('budgetPercentages', JSON.stringify(budgetPercentages));
+    }
+    catch(error) {
+        console.log('Error saving data:', error);
+    }
+}
+
 //  === DOM ELEMENTS ===
 //the three display cards
 const balanceDisplay = document.getElementById('balance');
@@ -67,17 +118,35 @@ function initializeSelectStyling() {
 }
 
 function updateDisplays() {
-    balanceDisplay.textContent = `$${budgetData.totalBalance.toFixed(2)}`;  //round 2 decimals for proper format
-    incomeDisplay.textContent = `$${budgetData.totalIncome.toFixed(2)}`;
-    expenseDisplay.textContent = `$${budgetData.totalExpenses.toFixed(2)}`;
+    if (balanceDisplay) {
+        balanceDisplay.textContent = `$${budgetData.totalBalance.toFixed(2)}`;  //round 2 decimals for proper format
+    }
+    if (incomeDisplay) {
+        incomeDisplay.textContent = `$${budgetData.totalIncome.toFixed(2)}`;
+    }
+    if(expenseDisplay) {
+        expenseDisplay.textContent = `$${budgetData.totalExpenses.toFixed(2)}`;
+    }
 
+    //update income display on budget section
+    const budgetIncomeDisplay = document.querySelector('.income-display .income p');
+    if(budgetIncomeDisplay) {
+        budgetIncomeDisplay.textContent = `$${budgetData.totalIncome.toFixed(2)}`;
+    }
     // FOR UPDATING BUDGET CHART WITH DATA
     if(budgetChart && budgetData.totalIncome > 0) {
         updateBudgetAllocations();
     }
+
+    //save data
+    saveDataToMemory();
 }   
 
 function displayUpdates() {
+    if(!updatesContainer) {
+        return;
+    }
+
     updatesContainer.innerHTML = '';
     updates.forEach((update) => {
         const updateItem = document.createElement('div');
@@ -91,8 +160,7 @@ function displayUpdates() {
         //specifically targets transactions
         if(update.description !== null) {
             updateHTML += `<span class="update-description">, Description: ${update.description}</span>`;
-        }
-                
+        }   
         //specifically targets income/expense
         if(update.category !== null) {
             updateHTML += `<span class="update-category">, Category: ${update.category}</span>`;
@@ -157,8 +225,6 @@ function addIncome(e) {
     else { 
         amountCalculated = amount;
     }
-
-
 
     budgetData.totalIncome += amountCalculated;
 
@@ -312,9 +378,17 @@ function updateBudgetAllocations() {
 
 //  === EVENT LISTENERS ===
 document.addEventListener('DOMContentLoaded', function() {
+
+    //load data from dashboard
+    loadDataFromMemory();
+
     initializeSelectStyling();
     
     initializeBudgetPage();
+
+    //display loaded data
+    updateDisplays();
+    displayUpdates();
 
     if(balanceForm) {
         balanceForm.addEventListener('submit', updateBalance);
@@ -432,6 +506,8 @@ function updateChart(newData) {
     ];
     
     updateBudgetAllocations();
+
+    saveDataToMemory();
 }
 
 function setUpTemplateButtons() {
