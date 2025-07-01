@@ -156,9 +156,10 @@ body {
 .input-container{
     flex: 1;
 }
+
 .input-box {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     font-size: 25px;
     gap: 2px;
     margin-bottom: 15px;
