@@ -11,8 +11,10 @@ let budgetData = {
 //updates array for storing user updates
 let updates = [];
 
-//for budget page, saves budget title 
+//budget page variables for data consistency during multi-page navigation
 let budgetTitle = 'Budget: 50/30/20 Rule';
+let budgetType = 'template';
+
 
 //function for loading from localStorage for data persistence per session
 function loadDataFromMemory() {
@@ -20,7 +22,8 @@ function loadDataFromMemory() {
         const savedBudgetData = sessionStorage.getItem('budgetData');
         const savedUpdates = sessionStorage.getItem('updates');
         const savedBudgetPercentages = sessionStorage.getItem('budgetPercentages');
-        const savedBudgetTitle =sessionStorage.getItem('budgetTitle');
+        const savedBudgetTitle = sessionStorage.getItem('budgetTitle');
+        const savedBudgetType = sessionStorage.getItem('budgetType');
 
         if(savedBudgetData) {
             budgetData = JSON.parse(savedBudgetData);
@@ -37,6 +40,9 @@ function loadDataFromMemory() {
             if(pageTitle) {
                 pageTitle.textContent = budgetTitle;
             }
+        }
+        if(savedBudgetType) {
+            budgetType = savedBudgetType;
         }
     }
     //if error, reset data
@@ -58,6 +64,7 @@ function loadDataFromMemory() {
             savings: 20
         };
         budgetTitle = 'Budget: 50/30/20 Rule';
+        budgetType = 'template';
     }
 }
 
@@ -68,6 +75,7 @@ function saveDataToMemory() {
         sessionStorage.setItem('updates', JSON.stringify(updates));
         sessionStorage.setItem('budgetPercentages', JSON.stringify(budgetPercentages));
         sessionStorage.setItem('budgetTitle', budgetTitle);
+        sessionStorage.setItem('budgetType', budgetType);
     }
     catch(error) {
         console.log('Error saving data:', error);
@@ -589,6 +597,7 @@ function setUpTemplateButtons() {
 
             let newBudget;
             let pageTitle = document.getElementById('budget-page-title');
+            budgetType = 'template';
 
             switch(index) {
                 // 50/30/20 rule
@@ -632,6 +641,7 @@ function setUpTemplateButtons() {
                     };
                     break;
             }
+            clearCustomPercentageInputs();
             updateChart(newBudget);
         });
     });
@@ -670,13 +680,13 @@ function updatePercentageTotal() {
         percentageTotal.style.color = '#388E3C';
     }
     //if total > 100%
-    if(total > 100) {
+    else if(total > 100) {
         percentageTotal.style.color = '#CD5C5C';
         percentageTotal.textContent += ' (Over 100%)';
     }
 
     //if total < 100%
-    if(total > 1 && total < 100) {
+    else if(total > 0 && total < 100) {
         percentageTotal.style.color = '#BA8534';
         percentageTotal.textContent += ' (Under 100%)';
     }
@@ -689,23 +699,28 @@ function populateCustomForm() {
         return;
     }
 
-    if(billsInput) {
-        billsInput.value = budgetPercentages.bills;
+    if(budgetType === 'custom') {
+        if(billsInput) {
+            billsInput.value = budgetPercentages.bills;
+        }
+        if(foodInput) {
+            foodInput.value = budgetPercentages.food;
+        }
+        if(transportationInput) {
+            transportationInput.value = budgetPercentages.transportation;
+        }
+        if(socialInput) {
+            socialInput.value = budgetPercentages.social;
+        }
+        if(personalInput) {
+            personalInput.value = budgetPercentages.personal;
+        }
+        if(savingsInput) {
+            savingsInput.value = budgetPercentages.savings;
+        }
     }
-    if(foodInput) {
-        foodInput.value = budgetPercentages.food;
-    }
-    if(transportationInput) {
-        transportationInput.value = budgetPercentages.transportation;
-    }
-    if(socialInput) {
-        socialInput.value = budgetPercentages.social;
-    }
-    if(personalInput) {
-        personalInput.value = budgetPercentages.personal;
-    }
-    if(savingsInput) {
-        savingsInput.value = budgetPercentages.savings;
+    else {
+        clearCustomPercentageInputs();
     }
 
     updatePercentageTotal();
@@ -735,6 +750,7 @@ function applyCustomPercentages(e) {
 
     //update the budget percentages with the custom inputs
     budgetTitle = 'Budget: Custom';
+    budgetType = 'custom';
     pageTitle.textContent = budgetTitle;
     const newBudget = {
         bills: bills,
@@ -750,7 +766,9 @@ function applyCustomPercentages(e) {
 
 //function for clearing the budget percentage input section
 function clearCustomPercentageInputs(e) {
-    e.preventDefault();
+    if(e) {
+        e.preventDefault();
+    }
 
     if(billsInput) {
         billsInput.value = '';
@@ -773,7 +791,10 @@ function clearCustomPercentageInputs(e) {
 
     const pageTitle = document.getElementById('budget-page-title');
     budgetTitle = 'Budget: 50/30/20 Rule';
-    pageTitle.textContent = budgetTitle;
+    budgetType = 'template';
+    if(pageTitle) {
+        pageTitle.textContent = budgetTitle;
+    }
 
     const defaultBudget = {
         bills: 25,
