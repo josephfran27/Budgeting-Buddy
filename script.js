@@ -11,9 +11,8 @@ let budgetData = {
 //updates array for storing user updates
 let updates = [];
 
-//load data 
+//function for loading from localStorage for data persistence per session
 function loadDataFromMemory() {
-    //load from localStorage for data persistence per session
     try {
         const savedBudgetData = sessionStorage.getItem('budgetData');
         const savedUpdates = sessionStorage.getItem('updates');
@@ -50,7 +49,7 @@ function loadDataFromMemory() {
     }
 }
 
-//save data to localStorage
+//function for saving data to localStorage for data persistence per session
 function saveDataToMemory() {
     try {
         sessionStorage.setItem('budgetData', JSON.stringify(budgetData));
@@ -100,6 +99,7 @@ const oneTimeForm = document.querySelector('.update-one-time-income');
 //updates list
 const updatesContainer = document.querySelector('.updates-list-container');
 
+
 //  === DISPLAY UPDATE FUNCTIONS ===
 //styling for select sections
 function updateSelectColor(select) {
@@ -111,6 +111,7 @@ function updateSelectColor(select) {
     }
 }
 
+// function for updating the select category/recurrense section colors upon input
 function initializeSelectStyling() {
     const selects = document.querySelectorAll('select');
     selects.forEach(select => {
@@ -122,6 +123,7 @@ function initializeSelectStyling() {
     });
 }
 
+// function for updating the displays as inputs flow in 
 function updateDisplays() {
     if (balanceDisplay) {
         balanceDisplay.textContent = `$${budgetData.totalBalance.toFixed(2)}`;  //round 2 decimals for proper format
@@ -147,6 +149,7 @@ function updateDisplays() {
     saveDataToMemory();
 }   
 
+// function for displaying the user updates in the update list
 function displayUpdates() {
     if(!updatesContainer) {
         return;
@@ -180,7 +183,8 @@ function displayUpdates() {
 }
 
 //  === MAIN FUNCTIONS ===
-//update balance
+
+// function for updating the balance in dashboard.html
 function updateBalance(e) {
     e.preventDefault();     //prevents page refresh
 
@@ -208,7 +212,7 @@ function updateBalance(e) {
     displayUpdates();
 }
 
-//add income
+// function for adding income in dashboard.html
 function addIncome(e) {
     e.preventDefault();
 
@@ -254,7 +258,7 @@ function addIncome(e) {
     displayUpdates();
 }
 
-//add expense
+// function for adding expenses in dashboard.html
 function addExpense(e) {
     e.preventDefault();
 
@@ -299,7 +303,7 @@ function addExpense(e) {
     displayUpdates();
 }
 
-//add transaction
+// function for adding transactions in dashboard.html
 function addTransaction(e) {
     e.preventDefault();
 
@@ -331,7 +335,7 @@ function addTransaction(e) {
     displayUpdates();
 }
 
-//add one-time income
+// function for adding one time income in dashboard.html
 function addOneTimeIncome(e) {
     e.preventDefault();
 
@@ -363,70 +367,31 @@ function addOneTimeIncome(e) {
     displayUpdates();
 }
 
-// === FOR BUDGETING MATH ===
-//calculates a dollar amount for each budgeting category based on income
-function calculateBudgetAllocations() {
-    const income = budgetData.totalIncome;
-
-    // edge case handling
-    if(income <= 0) {
-        return {
-            bills: 0,
-            food: 0,
-            transportation: 0,
-            social: 0,
-            personal: 0,
-            savings: 0
-        };
-    }
-
-    // get dollar amount per category according to percentage
-    return {
-        bills: (income * budgetPercentages.bills) / 100,
-        food: (income * budgetPercentages.food) / 100,
-        transportation: (income * budgetPercentages.transportation) / 100,
-        social: (income * budgetPercentages.social) / 100,
-        personal: (income * budgetPercentages.personal) / 100,
-        savings: (income * budgetPercentages.savings) / 100
-    };
-}
-
-//updates chart data with dollar amounts
-function updateBudgetAllocations() {
-    if(!budgetChart) {
-        return;
-    }
-
-    const allocations = calculateBudgetAllocations();
-
-    budgetChart.data.datasets[0].data = [
-        budgetPercentages.bills,
-        budgetPercentages.food,
-        budgetPercentages.transportation,
-        budgetPercentages.social,
-        budgetPercentages.personal,
-        budgetPercentages.savings
-    ];
-
-    budgetChart.allocations = allocations;
-    budgetChart.update();
-}
-
 
 //  === EVENT LISTENERS ===
+// function for the event listeners to each page and page content updates/set up
 document.addEventListener('DOMContentLoaded', function() {
 
     //load data from dashboard
     loadDataFromMemory();
 
+    //initialize styling upon page loading
     initializeSelectStyling();
     
+    //initialize the budgeting page
     initializeBudgetPage();
+
+    //for populating custom form with current percentage inputs
+    populateCustomForm();
+
+    //for setting up custom budget section in budget.html
+    setUpCustomButtons();
 
     //display loaded data
     updateDisplays();
     displayUpdates();
 
+    //event listeners for dashboard.html
     if(balanceForm) {
         balanceForm.addEventListener('submit', updateBalance);
     }
@@ -449,6 +414,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // BUDGETING SECTION
+
 let budgetPercentages = {
     bills: 25,
     food: 15,
@@ -460,7 +426,7 @@ let budgetPercentages = {
 
 let budgetChart;
 
-//initializes page
+// function for initializing the budget.html page
 function initializeBudgetPage() {
     const chartCanvas = document.getElementById('myChart');
     if(chartCanvas) {
@@ -469,7 +435,7 @@ function initializeBudgetPage() {
     }
 }
 
-//initializes chart
+// function for initializing the budget.html pie chart
 function initializeBudgetChart() {
     const ctx = document.getElementById('myChart').getContext('2d');
 
@@ -535,6 +501,7 @@ function initializeBudgetChart() {
     }
 }
 
+// function for updating the budget.html chart as things change
 function updateChart(newData) {
     budgetPercentages = newData;
     budgetChart.data.datasets[0].data = [
@@ -551,6 +518,55 @@ function updateChart(newData) {
     saveDataToMemory();
 }
 
+//function for calculating a dollar amount for each budgeting category based on income
+function calculateBudgetAllocations() {
+    const income = budgetData.totalIncome;
+
+    // edge case handling
+    if(income <= 0) {
+        return {
+            bills: 0,
+            food: 0,
+            transportation: 0,
+            social: 0,
+            personal: 0,
+            savings: 0
+        };
+    }
+
+    // get dollar amount per category according to percentage
+    return {
+        bills: (income * budgetPercentages.bills) / 100,
+        food: (income * budgetPercentages.food) / 100,
+        transportation: (income * budgetPercentages.transportation) / 100,
+        social: (income * budgetPercentages.social) / 100,
+        personal: (income * budgetPercentages.personal) / 100,
+        savings: (income * budgetPercentages.savings) / 100
+    };
+}
+
+//function for updating the pie chart data with dollar amounts
+function updateBudgetAllocations() {
+    if(!budgetChart) {
+        return;
+    }
+
+    const allocations = calculateBudgetAllocations();
+
+    budgetChart.data.datasets[0].data = [
+        budgetPercentages.bills,
+        budgetPercentages.food,
+        budgetPercentages.transportation,
+        budgetPercentages.social,
+        budgetPercentages.personal,
+        budgetPercentages.savings
+    ];
+
+    budgetChart.allocations = allocations;
+    budgetChart.update();
+}
+
+// function for the updating the pie chart according to the clicking of the different template buttons with event listeners
 function setUpTemplateButtons() {
     const templateButtons = document.querySelectorAll('.template-container .update-button');
 
@@ -605,4 +621,162 @@ function setUpTemplateButtons() {
     });
 }
 
+// custom form DOM elements
+const customBudgetForm = document.getElementById('custom-budget-form');
+const billsInput = document.getElementById('billsPercentage');
+const foodInput = document.getElementById('foodPercentage');
+const transportationInput = document.getElementById('transportationPercentage');
+const socialInput = document.getElementById('socialPercentage');
+const personalInput = document.getElementById('personalPercentage');
+const savingsInput = document.getElementById('savingsPercentage');
+const percentageTotal = document.getElementById('percentageTotal');
+
+//function for updating the percentage total as the user inputs
+function updatePercentageTotal() {
+    if(!percentageTotal) {
+        return;
+    }
+
+    //checks if inputs are defined, if not, result is 0
+    const bills = parseFloat(billsInput?.value) || 0;
+    const food = parseFloat(foodInput?.value) || 0;
+    const transportation = parseFloat(transportationInput?.value) || 0;
+    const social = parseFloat(socialInput?.value) || 0;
+    const personal = parseFloat(personalInput?.value) || 0;
+    const savings = parseFloat(savingsInput?.value) || 0;
+
+    const total = bills + food + transportation + social + personal + savings;
+
+    percentageTotal.textContent = `Total: ${total}%`
+
+    //if total === 100% 0r 0
+    if(total === 100 || total === 0) {
+        percentageTotal.style.color = '#388E3C';
+    }
+    //if total > 100%
+    if(total > 100) {
+        percentageTotal.style.color = '#CD5C5C';
+        percentageTotal.textContent += ' (Over 100%)';
+    }
+
+    //if total < 100%
+    if(total > 1 && total < 100) {
+        percentageTotal.style.color = '#BA8534';
+        percentageTotal.textContent += ' (Under 100%)';
+    }
+}
+
+//function for populatng the form with current budget percentages as the user inputs
+function populateCustomForm() {
+
+    if(!customBudgetForm) {
+        return;
+    }
+
+    if(billsInput) {
+        billsInput.value = budgetPercentages.bills;
+    }
+    if(foodInput) {
+        foodInput.value = budgetPercentages.food;
+    }
+    if(transportationInput) {
+        transportationInput.value = budgetPercentages.transportation;
+    }
+    if(socialInput) {
+        socialInput.value = budgetPercentages.social;
+    }
+    if(personalInput) {
+        personalInput.value = budgetPercentages.personal;
+    }
+    if(savingsInput) {
+        savingsInput.value = budgetPercentages.savings;
+    }
+
+    updatePercentageTotal();
+}
+
+//function for applying the custom budget form submission
+function applyCustomPercentages(e) {
+    e.preventDefault();
+    let pageTitle = document.getElementById('budget-page-title');
+
+    const bills = parseFloat(billsInput?.value) || 0;
+    const food = parseFloat(foodInput?.value) || 0;
+    const transportation = parseFloat(transportationInput?.value) || 0;
+    const social = parseFloat(socialInput?.value) || 0;
+    const personal = parseFloat(personalInput?.value) || 0;
+    const savings = parseFloat(savingsInput?.value) || 0;
+
+    const total = bills + food + transportation + social + personal + savings;
+
+    //handling for the different cases for percentages
+    if(total !== 100) {
+        percentageTotal.style.color = '#CD5C5C';
+        percentageTotal.textContent = 'Total percentages must equal 100 for submission.';
+        return;
+    }
+
+    if(total < 100) {
+        percentageTotal.style.color = '#BA8534';
+        percentageTotal.textContent += ' (Under 100%)';
+    }
+
+    //update the budget percentages with the custom inputs
+    pageTitle.textContent = 'Budget: Custom';
+    const newBudget = {
+        bills: bills,
+        food: food,
+        transportation: transportation,
+        social: social,
+        personal: personal,
+        savings: savings
+    };
+
+    updateChart(newBudget);
+}
+
+//function for clearing the budget percentage input section
+function clearCustomPercentageInputs(e) {
+    e.preventDefault();
+
+    if(billsInput) {
+        billsInput.value = '';
+    }
+    if(foodInput) {
+        foodInput.value = '';
+    }
+    if(transportationInput) {
+        transportationInput.value = '';
+    }
+    if(socialInput) {
+        socialInput.value = '';
+    }
+    if(personalInput) {
+        personalInput.value = '';
+    }
+    if(savingsInput) {
+        savingsInput.value = '';
+    }
+    
+    updatePercentageTotal();
+}
+
+//function for updating the pie chart with the custom budget percentage inputs and action listeners for the input sections
+function setUpCustomButtons() {
+    if(!customBudgetForm) {
+        return;
+    }
+
+    const inputSections = [billsInput, foodInput, transportationInput, socialInput, personalInput, savingsInput];
+
+    inputSections.forEach(input => {
+        if(input) {
+            input.addEventListener('input', updatePercentageTotal);
+        }
+    });
+
+    customBudgetForm.addEventListener('submit', applyCustomPercentages);
+
+    customBudgetForm.addEventListener('click', clearCustomPercentageInputs);
+}
 

@@ -74,45 +74,49 @@
             <div class="update-container">
                 <h2 class="update-title">Custom</h2 >
             </div>
-            <form class="section update-balance">
+            <form class="section update-custom" id="custom-budget-form">
                 <h3>Build your own budgeting strategy to adhere to your budgeting goals.</h3>
                 <!-- percentage input -->
                 <div class="dropdownContainer">
                     <!-- percentage section -->
                     <div class="input-container">
-                        <label for="expenseAmount">Bills (Need)</label>
+                        <label for="billsPercentage">Bills (Need)</label>
                         <div class="input-box">
                             <p>%</p>
-                            <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
+                            <input type="number" id="billsPercentage" step="1" min="0" max="100" placeholder="0" required>
                         </div>
-                        <label for="expenseAmount">Food (Need)</label>
+                        <label for="foodPercentage">Food (Need)</label>
                         <div class="input-box">
                             <p>%</p>
-                            <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
+                            <input type="number" id="foodPercentage" step="1" min="0" max="100" placeholder="0" required>
                         </div>
-                        <label for="expenseAmount">Transportation (Need)</label>
+                        <label for="transportationPercentage">Transportation (Need)</label>
                         <div class="input-box">
                             <p>%</p>
-                            <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
+                            <input type="number" id="transportationPercentage" step="1" min="0" max="100" placeholder="0" required>
                         </div>
-                        <label for="expenseAmount">Social (Want)</label>
+                        <label for="socialPercentage">Social (Want)</label>
                         <div class="input-box">
                             <p>%</p>
-                            <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
+                            <input type="number" id="socialPercentage" step="1" min="0" max="100" placeholder="0" required>
                         </div>
-                        <label for="expenseAmount">Personal (Want)</label>
+                        <label for="personalPercentage">Personal (Want)</label>
                         <div class="input-box">
                             <p>%</p>
-                            <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
+                            <input type="number" id="personalPercentage" step="1" min="0" max="100" placeholder="0" required>
                         </div>
-                        <label for="expenseAmount">Savings</label>
+                        <label for="savingsPercentage">Savings</label>
                         <div class="input-box">
                             <p>%</p>
-                            <input type="number" id="expenseAmount" step="1" min="1" placeholder="0" required>
+                            <input type="number" id="savingsPercentage" step="" min="0" max="100" placeholder="0" required>
                         </div>
                     </div>
                 </div>
-                <button class="update-button" type="submit">Apply</button>
+                <div id="percentageTotal" class="percentage-total">Total: 0%</div>
+                <div class="update-clear">
+                    <button class="update-button" type="submit">Apply</button>
+                    <button class="update-button" type="button">Clear Inputs</button>
+                </div>
         </div>
     </div>
 

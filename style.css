@@ -279,3 +279,17 @@ input:focus, select:focus {
     width: 100%;
     height: 100%;
 }
+
+.percentage-total {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.update-clear {
+    display: flex;
+    gap: 10px;
+}
+
+.update-custom h3 {
+    margin-bottom: 15px;
+}
