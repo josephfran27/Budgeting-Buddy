@@ -241,6 +241,10 @@ input:focus, select:focus {
     text-align: center;
 }
 
+.section h3 {
+    text-align: center;
+}
+
 .income-display {
     text-align: center;
     display: flex;
@@ -285,9 +289,12 @@ input:focus, select:focus {
     font-size: 20px;
 }
 
-.update-clear {
-    display: flex;
-    gap: 10px;
+.update-clear button{
+    background-color: #CD5C5C;
+}
+
+.update-clear button:hover{
+    background-color: #9e4343;
 }
 
 .update-custom h3 {
