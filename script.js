@@ -417,6 +417,7 @@ function clearDashboardInputs(e) {
     updates = [];
 
     updateDisplays();
+    displayUpdates();
 }
 
 
