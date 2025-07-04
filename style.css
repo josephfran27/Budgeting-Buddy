@@ -222,7 +222,7 @@ input:focus, select:focus {
 /* updates list */
 .updates-list-container {
     background: #fff;
-    height: 250px;
+    height: 200px;
     overflow-y: auto;
     overflow-x: auto;
     padding: 10px;
@@ -302,13 +302,22 @@ input:focus, select:focus {
 }
 
 /* SAVINGS PAGE */
+.future-balance-title {
+    font-size: 20px;
+    border-top: 4px solid #388E3C;
+    margin-top: 5px;
+    padding-top: 15px;
+}
+
 .future-balance-box {
     border: 2px solid #388E3C;
     border-radius: 6px;
     background: #fff;
-    height: 46px;
+    height: 80px;
     padding: 10px;
     font-size: 24px;
+    margin: 15px 200px 0 200px;
     display: flex;
     align-items: center;
+    justify-content: center;
 }

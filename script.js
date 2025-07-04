@@ -1,7 +1,7 @@
 
 
 // DASHBOARD SECTION
-//data structure: Object for holding data about budget
+//data structure: Object for holding data about budget, income and expenses are per month
 let budgetData = {
     totalBalance: 0,
     totalIncome: 0,
@@ -151,6 +151,12 @@ function initializeSelectStyling() {
 function updateDisplays() {
     if (balanceDisplay) {
         balanceDisplay.textContent = `$${budgetData.totalBalance.toFixed(2)}`;  //round 2 decimals for proper format
+        if(budgetData.totalBalance < 0) {
+            balanceDisplay.style.color = '#CD5C5C';
+        }
+        if(budgetData.totalBalance > 0) {
+            balanceDisplay.style.color = '#388E3C';
+        }
     }
     if (incomeDisplay) {
         incomeDisplay.textContent = `$${budgetData.totalIncome.toFixed(2)}`;
@@ -164,6 +170,11 @@ function updateDisplays() {
     if(budgetIncomeDisplay) {
         budgetIncomeDisplay.textContent = `$${budgetData.totalIncome.toFixed(2)}`;
     }
+
+    if(futureBalanceDisplay) {
+        updateFutureBalanceDisplay();
+    }
+
     // FOR UPDATING BUDGET CHART WITH DATA
     if(budgetChart && budgetData.totalIncome > 0) {
         updateBudgetAllocations();
@@ -422,7 +433,7 @@ function clearDashboardInputs(e) {
 
 
 //  === EVENT LISTENERS ===
-// function for the event listeners to each page and page content updates/set up
+// attaches the event listeners to each page and page content updates/set up
 document.addEventListener('DOMContentLoaded', function() {
 
     //load data from dashboard
@@ -467,6 +478,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if(clearDashboard) {
         clearDashboard.addEventListener('click', clearDashboardInputs);
+    }
+    if(futureBalanceForm) {
+        futureBalanceForm.addEventListener('submit', viewFutureBalance);
     }
 });
 
@@ -897,3 +911,84 @@ function setUpCustomButtons() {
 }
 
 // SAVINGS SECTION
+//display current balance 
+const futureBalanceForm = document.querySelector('.future-balance')
+const futureBalanceDisplay = document.querySelector('.future-balance-box');
+const timeAmountInput = document.getElementById('timeAmount');
+const timeUnitSelection = document.getElementById('timeUnit');
+
+//function for calculating the future balance according to submission
+function calculateFutureBalance(timeAmount, timeUnit) {
+    const currentBalance = budgetData.totalBalance;
+    const monthlyNetIncome = budgetData.totalIncome - budgetData.totalExpenses;
+
+    if(monthlyNetIncome === 0) {
+        alert('You have no income.');
+        return;
+    }
+
+    let multiplier;
+
+    //converts monthly income to adjust to time unit selection
+    switch(timeUnit) {
+        case 'weeks':
+            multiplier = timeAmount / 4.33;
+            break;
+        case 'months':
+            multiplier = timeAmount;
+            break;
+        case 'years':
+            multiplier = timeAmount * 12;
+            break;
+        default:
+            return currentBalance;
+    }
+
+    //finds income per time unit
+    const futureChange = monthlyNetIncome * multiplier;
+    //adds income per time unit to balance
+    const futureBalance = currentBalance + futureChange;
+
+    return futureBalance;
+}
+
+//function for handling future balance form submission
+function viewFutureBalance(e) {
+    e.preventDefault();
+
+    const timeAmount = parseFloat(timeAmountInput.value);
+    const timeUnit = timeUnitSelection.value;
+
+    const futureBalance = calculateFutureBalance(timeAmount, timeUnit);
+
+    futureBalanceDisplay.textContent = `$${futureBalance.toFixed(2)}`;
+
+    if(futureBalance < 0) {
+        
+        futureBalanceDisplay.style.color = '#CD5C5C';
+    }
+    if(futureBalance > 0) {
+        futureBalanceDisplay.style.color = '#388E3C';
+    }
+
+    timeAmountInput.value = '';
+    timeUnitSelection.value = '';
+    updateSelectColor(timeUnitSelection);
+
+    saveDataToMemory();
+    displayUpdates();
+}
+
+//function for showing the current balance in the future balance section
+function updateFutureBalanceDisplay() {
+    if(futureBalanceDisplay) {
+        futureBalanceDisplay.textContent = `$${budgetData.totalBalance.toFixed(2)}`;
+
+        if(budgetData.totalBalance < 0) {
+            futureBalanceDisplay.style.color = '#CD5C5C';
+        }
+        if(budgetData.totalBalance > 0) {
+            futureBalanceDisplay.style.color = '#388E3C';
+        }
+    }
+}
