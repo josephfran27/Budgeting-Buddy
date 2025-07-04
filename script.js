@@ -154,7 +154,7 @@ function updateDisplays() {
         if(budgetData.totalBalance < 0) {
             balanceDisplay.style.color = '#CD5C5C';
         }
-        if(budgetData.totalBalance > 0) {
+        if(budgetData.totalBalance >= 0) {
             balanceDisplay.style.color = '#388E3C';
         }
     }
