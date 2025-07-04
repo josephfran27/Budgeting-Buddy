@@ -150,7 +150,7 @@ body {
 }
 
 .section p {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .input-container{
@@ -299,4 +299,11 @@ input:focus, select:focus {
 
 .update-custom h3 {
     margin-bottom: 15px;
+}
+
+.summary-container {
+    border: solid 2px #388E3C;
+    border-radius: 6px;
+    text-align: start;
+    padding: 10px;
 }

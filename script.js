@@ -117,6 +117,9 @@ const oneTimeDescription = document.getElementById('oneTimeTitle');
 const oneTimeInput = document.getElementById('oneTimeAmount');
 const oneTimeForm = document.querySelector('.update-one-time-income');
 
+//clear button
+const clearDashboard = document.getElementById('clear-dashboard-button');
+
 //updates list
 const updatesContainer = document.querySelector('.updates-list-container');
 
@@ -388,6 +391,34 @@ function addOneTimeIncome(e) {
     displayUpdates();
 }
 
+// function for clearing the dashboard data
+//function for clearing the budget percentage input section
+function clearDashboardInputs(e) {
+    if(e) {
+        e.preventDefault();
+    }
+
+    if(balanceDisplay) {
+        balanceDisplay.value = '0.00';
+    }
+    if(incomeDisplay) {
+        incomeDisplay.value = '0.00';
+    }
+    if(expenseDisplay) {
+        expenseDisplay.value = '0.00';
+    }
+
+    budgetData = {
+        totalBalance: 0,
+        totalIncome: 0,
+        totalExpenses: 0,
+    };
+
+    updates = [];
+
+    updateDisplays();
+}
+
 
 //  === EVENT LISTENERS ===
 // function for the event listeners to each page and page content updates/set up
@@ -431,6 +462,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if(oneTimeForm) {
         oneTimeForm.addEventListener('submit', addOneTimeIncome);
+    }
+
+    if(clearDashboard) {
+        clearDashboard.addEventListener('click', clearDashboardInputs);
     }
 });
 
@@ -596,7 +631,7 @@ function setUpTemplateButtons() {
             e.preventDefault();
 
             let newBudget;
-            let pageTitle = document.getElementById('budget-page-title');
+            const pageTitle = document.getElementById('budget-page-title');
             budgetType = 'template';
 
             switch(index) {
@@ -604,7 +639,9 @@ function setUpTemplateButtons() {
                 case 0:
                     //change title and percentage divisions
                     budgetTitle = 'Budget: 50/30/20 Rule';
-                    pageTitle.textContent = budgetTitle;
+                    if(pageTitle) {
+                        pageTitle.textContent = budgetTitle;
+                    }
                     newBudget = {
                         bills: 25,
                         food: 15,
@@ -617,7 +654,9 @@ function setUpTemplateButtons() {
                 // 60/20/20 rule
                 case 1:
                     budgetTitle = 'Budget: 60/20/20 Rule';
-                    pageTitle.textContent = budgetTitle;
+                    if(pageTitle) {
+                        pageTitle.textContent = budgetTitle;
+                    }
                     newBudget = {
                         bills: 30,
                         food: 20,
@@ -630,7 +669,9 @@ function setUpTemplateButtons() {
                 //80/20 rule
                 case 2:
                     budgetTitle = 'Budget: 80/20 Rule';
-                    pageTitle.textContent = budgetTitle;                  
+                    if(pageTitle) {
+                        pageTitle.textContent = budgetTitle;
+                    }               
                     newBudget = {
                         bills: 30,
                         food: 20,
@@ -640,8 +681,9 @@ function setUpTemplateButtons() {
                         savings: 20
                     };
                     break;
+                default:
+                    return;
             }
-            clearCustomPercentageInputs();
             updateChart(newBudget);
         });
     });
@@ -805,8 +847,29 @@ function clearCustomPercentageInputs(e) {
         savings: 20
     };
 
-    updateChart(defaultBudget);
-    updatePercentageTotal();
+    budgetPercentages = defaultBudget;
+
+    if(budgetChart) {
+        budgetChart.data.datasets[0].data = [
+            defaultBudget.bills,
+            defaultBudget.food,
+            defaultBudget.transportation,
+            defaultBudget.social,
+            defaultBudget.personal,
+            defaultBudget.savings
+        ];
+        updateBudgetAllocations();
+    }
+
+    //saves only budget related data
+    try {
+        sessionStorage.setItem('budgetPercentages', JSON.stringify(budgetPercentages));
+        sessionStorage.setItem('budgetTitle', budgetTitle);
+        sessionStorage.setItem('budgetType', budgetType);
+    }
+    catch(error) {
+        console.log('Error saving budget data: ', error);
+    }
 }
 
 //function for updating the pie chart with the custom budget percentage inputs and action listeners for the input sections
@@ -825,7 +888,7 @@ function setUpCustomButtons() {
 
     customBudgetForm.addEventListener('submit', applyCustomPercentages);
 
-    const clearButton = document.getElementById('clear-button');
+    const clearButton = document.getElementById('clear-budget-button');
 
     if(clearButton) {
         clearButton.addEventListener('click', clearCustomPercentageInputs);
