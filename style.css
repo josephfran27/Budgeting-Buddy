@@ -301,9 +301,14 @@ input:focus, select:focus {
     margin-bottom: 15px;
 }
 
-.summary-container {
-    border: solid 2px #388E3C;
+/* SAVINGS PAGE */
+.future-balance-box {
+    border: 2px solid #388E3C;
     border-radius: 6px;
-    text-align: start;
+    background: #fff;
+    height: 46px;
     padding: 10px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
 }

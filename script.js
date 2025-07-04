@@ -391,7 +391,7 @@ function addOneTimeIncome(e) {
     displayUpdates();
 }
 
-// function for clearing the dashboard data
+
 //function for clearing the budget percentage input section
 function clearDashboardInputs(e) {
     if(e) {
@@ -896,3 +896,4 @@ function setUpCustomButtons() {
     }
 }
 
+// SAVINGS SECTION
