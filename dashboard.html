@@ -51,7 +51,7 @@
             <!-- UPDATE TOTAL BALANCE -->
             <form class="section update-balance">
                 <h2>Update Balance</h2>
-                <p>This can be helpful if you want to start fresh or may have missed transactions.</p>
+                <p>Manually adjust your balance if you're starting fresh or missed a past transaction.</p>
                 <!-- amount input -->
                 <div class="input-container">
                     <label for="balanceAmount">Amount</label>
@@ -66,7 +66,7 @@
             <!-- UPDATE INCOME -->
             <form class="section update-income">
                 <h2>Add Income</h2>
-                <p>Think about all of the ways that you make money. Think about your main job, side hustles, etc.</p>
+                <p>Enter your recurring income sources (e.g., paycheck, side hustle). These will be calculated monthly for budgeting.</p>
                 <!-- description input -->
                 <div class="input-container">
                     <label for="incomeTitle">Description</label>
@@ -90,7 +90,7 @@
                         <select id="incomeCategory" required>
                             <option value="">Select category</option>
                             <option value="salary">Salary</option>
-                            <option value="wage">Wage</option>
+                            <option value="wage">Pay check (e.g. bi-weekly check)</option>
                             <option value="passive">Passive</option>
                             <option value="other">Other</option>
                         </select>
@@ -112,8 +112,7 @@
             <!-- UPDATE EXPENSES -->
             <form class="section update-expense">
                 <h2>Add Expense</h2>
-                <p>The goal is to think as deep as possible for this section. It's hard to track your spending when you aren't 
-                    considering every little thing. (Yes your weekly Chipotle counts)</p>
+                <p>Log your recurring expenses to get the most accurate picture of your monthly budget.</p>
                 <!-- description input -->
                 <div class="input-container">
                     <label for="expenseTitle">Description</label>
@@ -161,7 +160,7 @@
             <!-- ADD TRANSACTION -->
             <form class="section update-transaction">
                 <h2>Add Transaction</h2>
-                <p>Add transactions here. This will subtract from your total balance.</p>
+                <p>Track one-off purchases. This amount will be subtracted from your current balance.</p>
                 <!-- description input -->
                 <div class="input-container">
                     <label for="transactionTitle">Description</label>
@@ -183,9 +182,7 @@
             <!-- ADD ONE TIME INCOME -->
             <form class="section update-one-time-income">
                 <h2>One-time Income</h2>
-                <p>Add a one-time income source. This is helpful for random forms of income that don't get added to your
-                    monthly number.
-                </p>
+                <p>Enter income that doesn't repeat, like gifts or freelance jobs. These won't be factored into your monthly average.</p>
                 <!-- description input -->
                 <div class="input-container">
                     <label for="oneTimeTitle">Description</label>
@@ -207,7 +204,7 @@
             <!-- UPDATES LIST -->
             <div class="section updates-list">
                 <h2>Updates List</h2>
-                <p>Displays all of your updates.</p>
+                <p>View a complete list of all recent updates — income, expenses, and balance changes.</p>
                 <div class="updates-list-container"></div>
             </div>
 

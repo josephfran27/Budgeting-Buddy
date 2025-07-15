@@ -89,13 +89,13 @@ body {
 
 .home-title {
     color: #388E3C;
-    margin: 20px 0;
+    margin-top: 10px;
 }
 
 .home-text {
     font-size: 18px;
     color: #388E3C;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 .home-paragraph {
     font-size: 18px;
@@ -309,6 +309,11 @@ input:focus, select:focus {
     padding-top: 15px;
 }
 
+.future-input-container {
+    display: flex;
+    gap: 10px;
+}
+
 .future-balance-box {
     border: 2px solid #388E3C;
     border-radius: 6px;
@@ -316,7 +321,7 @@ input:focus, select:focus {
     height: 80px;
     padding: 10px;
     font-size: 24px;
-    margin: 15px 200px 0 200px;
+    margin: 15px auto 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
