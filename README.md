@@ -1,3 +1,8 @@
+# Budgeting Buddy
+
+A simple, user-friendly budgeting application designed to make personal finance more approachable. It helps users track their income, expenses, transactions, and savings — all in one interactive dashboard. 
+It also has sections for budgeting and savings, allowing the user to strategize their finances.
+
 ## UI Screenshots
 
 ### Dashboard
