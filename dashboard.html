@@ -109,15 +109,63 @@
                 <button class="update-button" type="submit">Add Income</button>
             </form>
 
-            <!-- UPDATE EXPENSES -->
-            <form class="section update-expense">
-                <h2>Add Expense</h2>
-                <p>Log your recurring expenses to get the most accurate picture of your monthly budget.</p>
+            <!-- UPDATE FIXED EXPENSES -->
+            <form class="section update-expense" id="fixedExpenseForm">
+                <h2>Add Fixed Expense</h2>
+                <p>Log your expenses that are absolute and essential.</p>
                 <!-- description input -->
                 <div class="input-container">
                     <label for="expenseTitle">Description</label>
                     <div class="input-box">
-                        <input type="text" id="expenseTitle" placeholder="e.g. Spotify Premium" required>
+                        <input type="text" id="expenseTitle" placeholder="e.g. Rent" required>
+                    </div>
+                </div>
+                    <!-- amount input -->
+                <div class="input-container">
+                    <label for="expenseAmount">Amount</label>
+                    <div class="input-box">
+                        <p>$</p>
+                        <input type="number" id="expenseAmount" step="0.01" min=".01" placeholder="0.00" required>
+                    </div>
+                </div>
+                <!-- Dropdown section (for flex) -->
+                <div class="dropdownContainer">
+                    <!-- category selection -->
+                    <div class="input-container">
+                        <label for="expenseCategory">Category</label>
+                        <select id="expenseCategory" required>
+                            <option value="">Select category</option>
+                            <option value="food">Food (e.g. groceries)</option>
+                            <option value="transportation">Transportation (e.g. gas)</option>
+                            <option value="social">Social (e.g. resturaunt, travel)</option>
+                            <option value="bills">Bills (e.g. rent, insurance)</option>
+                            <option value="personal-utilities">Personal (e.g. subscriptions, grooming)</option>
+                            <option value="other">Other</option>
+                            </select>
+                    </div>
+                    <!-- recurrence selection -->
+                    <div class="input-container">
+                        <label for="expenseRecurrence">Recurrence</label>
+                        <select id="expenseRecurrence" required>
+                            <option value="">Select recurrence</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="update-button" type="submit">Add Expense</button>
+            </form>
+
+            <!-- UPDATE FLEXIBLE EXPENSES -->
+            <form class="section update-expense" id="flexibleExpenseForm"> 
+                <h2>Add Flexible Expense</h2>
+                <p>Log your expenses that aren't as imporant and can be adjusted.</p>
+                <!-- description input -->
+                <div class="input-container">
+                    <label for="expenseTitle">Description</label>
+                    <div class="input-box">
+                        <input type="text" id="expenseTitle" placeholder="e.g. Groceries" required>
                     </div>
                 </div>
                     <!-- amount input -->

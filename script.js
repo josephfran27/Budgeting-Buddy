@@ -6,6 +6,8 @@ let budgetData = {
     totalBalance: 0,
     totalIncome: 0,
     totalExpenses: 0,
+    totalFixedExpenses: 0,
+    totalFlexibleExpenses: 0
 };
 
 //updates array for storing user updates
@@ -27,6 +29,12 @@ function loadDataFromMemory() {
 
         if(savedBudgetData) {
             budgetData = JSON.parse(savedBudgetData);
+            if(!budgetData.totalFixedExpenses) {
+                budgetData.totalFixedExpenses = 0;
+            }
+            if(!budgetData.totalFlexibleExpenses) {
+                budgetData.totalFlexibleExpenses = 0;
+            }
         }
         if(savedUpdates) {
             updates = JSON.parse(savedUpdates);
@@ -53,6 +61,8 @@ function loadDataFromMemory() {
             totalBalance: 0,
             totalIncome: 0,
             totalExpenses: 0,
+            totalFixedExpenses: 0,
+            totalFlexibleExpenses: 0
         };
         updates = [];
         budgetPercentages = {
@@ -293,14 +303,67 @@ function addIncome(e) {
     displayUpdates();
 }
 
-// function for adding expenses in dashboard.html
+// function for adding fixed in dashboard.html
+function addFixedExpense(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const amount = parseFloat(form.querySelector('expense-amount').value);
+    const description = form.querySelector('expense-title').value;
+    const category = form.querySelector('expense-category').value;
+    const recurrence = form.querySelector('expense-recurrence').value;
+    let amountCalculated;
+
+    //weekly pay calculated to monthly
+    if(recurrence === 'weekly') {
+        amountCalculated = (amount * 52) / 12;
+    }
+    //yearly
+    else if(recurrence === 'yearly') {
+        amountCalculated = amount / 12;
+    }
+    //monthly
+    else { 
+        amountCalculated = amount;
+    }
+
+    budgetData.totalFixedExpenses += amountCalculated;
+
+    budgetData.fixedExpenses.push({
+        type: 'Fixed Expense',
+        description: description,
+        amount: amount,
+        category: category,
+        recurrence: recurrence,
+        date: new Date().toLocaleDateString()
+    });
+
+    updates.push({
+        type: 'Expense',
+        description: description,
+        amount: amount,
+        category: category,
+        recurrence: recurrence,
+        date: new Date().toLocaleDateString()
+    });
+
+    form.reset();
+    updateSelectColor(form.querySelector('.expense-category'));
+    updateSelectColor(form.querySelector('.expense-recurrence'));
+
+    updateDisplays();
+    displayUpdates();
+}
+
+// function for adding flexible in dashboard.html
 function addExpense(e) {
     e.preventDefault();
 
-    const amount = parseFloat(expenseInput.value);
-    const description = expenseDescription.value;
-    const category = expenseCategory.value;
-    const recurrence = expenseRecurrence.value;
+    const form = e.target;
+    const amount = parseFloat(form.querySelector('.expense-amount').value);
+    const description = form.querySelector('.expense-title').value;
+    const category = form.querySelector('.expense-category').value;
+    const recurrence = form.querySelector('.expense-recurrence').value;
     let amountCalculated;
 
     //weekly pay calculated to monthly
@@ -318,6 +381,15 @@ function addExpense(e) {
 
     budgetData.totalExpenses += amountCalculated;
 
+    budgetData.flexibleExpenses.push({
+        type: 'Flexible Expense',
+        description: description,
+        amount: amount,
+        category: category,
+        recurrence: recurrence,
+        date: new Date().toLocaleDateString()
+    });
+
     updates.push({
         type: 'Expense',
         description: description,
@@ -327,13 +399,10 @@ function addExpense(e) {
         date: new Date().toLocaleDateString()
     });
 
-    expenseDescription.value = '';
-    expenseInput.value = '';
-    expenseCategory.value = '';
-    expenseRecurrence.value ='';
+    form.reset()
+    updateSelectColor(form.querySelector('.expense-category'));
+    updateSelectColor(form.querySelector('.expense-recurrence'));
 
-    updateSelectColor(expenseCategory);
-    updateSelectColor(expenseRecurrence);
     updateDisplays();
     displayUpdates();
 }
