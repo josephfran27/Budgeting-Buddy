@@ -3,7 +3,6 @@
 A comprehensive personal finance web application for tracking expenses, managing budgets, and planning your financial future. Built as a practical tool for managing personal finances.
 
 ## Features
-### Dashboard
 • Real-time Balance Tracking - Monitor account balance with color-coded indicators
 • Income & Expense Management - Track recurring income and expenses (weekly, monthly, yearly)
 • Multiple Budget Templates - Choose from 50/30/20, 60/20/20, or 80/20 budgeting rules
