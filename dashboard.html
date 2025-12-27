@@ -112,28 +112,30 @@
             <!-- UPDATE FIXED EXPENSES -->
             <form class="section update-expense" id="fixedExpenseForm">
                 <h2>Add Fixed Expense</h2>
-                <p>Log your expenses that are absolute and essential.</p>
+                <p>Log your expenses that are absolute and essential. This total will be subtracted from your total income for the budgeting section 
+                    to help you plan how to spend your remaining money.
+                </p>
                 <!-- description input -->
                 <div class="input-container">
-                    <label for="expenseTitle">Description</label>
+                    <label for="fixedExpenseTitle">Description</label>
                     <div class="input-box">
-                        <input type="text" id="expenseTitle" placeholder="e.g. Rent" required>
+                        <input type="text" id="fixedExpenseTitle" placeholder="e.g. Rent" required>
                     </div>
                 </div>
                     <!-- amount input -->
                 <div class="input-container">
-                    <label for="expenseAmount">Amount</label>
+                    <label for="fixedExpenseAmount">Amount</label>
                     <div class="input-box">
                         <p>$</p>
-                        <input type="number" id="expenseAmount" step="0.01" min=".01" placeholder="0.00" required>
+                        <input type="number" id="fixedExpenseAmount" step="0.01" min=".01" placeholder="0.00" required>
                     </div>
                 </div>
                 <!-- Dropdown section (for flex) -->
                 <div class="dropdownContainer">
                     <!-- category selection -->
                     <div class="input-container">
-                        <label for="expenseCategory">Category</label>
-                        <select id="expenseCategory" required>
+                        <label for="fixedExpenseCategory">Category</label>
+                        <select id="fixedExpenseCategory" required>
                             <option value="">Select category</option>
                             <option value="food">Food (e.g. groceries)</option>
                             <option value="transportation">Transportation (e.g. gas)</option>
@@ -145,8 +147,8 @@
                     </div>
                     <!-- recurrence selection -->
                     <div class="input-container">
-                        <label for="expenseRecurrence">Recurrence</label>
-                        <select id="expenseRecurrence" required>
+                        <label for="fixedExpenseRecurrence">Recurrence</label>
+                        <select id="fixedExpenseRecurrence" required>
                             <option value="">Select recurrence</option>
                             <option value="weekly">Weekly</option>
                             <option value="monthly">Monthly</option>
@@ -160,28 +162,29 @@
             <!-- UPDATE FLEXIBLE EXPENSES -->
             <form class="section update-expense" id="flexibleExpenseForm"> 
                 <h2>Add Flexible Expense</h2>
-                <p>Log your expenses that aren't as imporant and can be adjusted.</p>
+                <p>Log your expenses that aren't as imporant and can be adjusted. In the budgeting section, this won't be subtracted from your total income so that
+                    you can get an idea of how to best allocate your spending on these expenses. </p>
                 <!-- description input -->
                 <div class="input-container">
-                    <label for="expenseTitle">Description</label>
+                    <label for="flexibleExpenseTitle">Description</label>
                     <div class="input-box">
-                        <input type="text" id="expenseTitle" placeholder="e.g. Groceries" required>
+                        <input type="text" id="flexibleExpenseTitle" placeholder="e.g. Groceries" required>
                     </div>
                 </div>
                     <!-- amount input -->
                 <div class="input-container">
-                    <label for="expenseAmount">Amount</label>
+                    <label for="flexibleExpenseAmount">Amount</label>
                     <div class="input-box">
                         <p>$</p>
-                        <input type="number" id="expenseAmount" step="0.01" min=".01" placeholder="0.00" required>
+                        <input type="number" id="flexibleExpenseAmount" step="0.01" min=".01" placeholder="0.00" required>
                     </div>
                 </div>
                 <!-- Dropdown section (for flex) -->
                 <div class="dropdownContainer">
                     <!-- category selection -->
                     <div class="input-container">
-                        <label for="expenseCategory">Category</label>
-                        <select id="expenseCategory" required>
+                        <label for="flexibleExpenseCategory">Category</label>
+                        <select id="flexibleExpenseCategory" required>
                             <option value="">Select category</option>
                             <option value="food">Food (e.g. groceries)</option>
                             <option value="transportation">Transportation (e.g. gas)</option>
@@ -193,8 +196,8 @@
                     </div>
                     <!-- recurrence selection -->
                     <div class="input-container">
-                        <label for="expenseRecurrence">Recurrence</label>
-                        <select id="expenseRecurrence" required>
+                        <label for="flexibleExpenseRecurrence">Recurrence</label>
+                        <select id="flexibleExpenseRecurrence" required>
                             <option value="">Select recurrence</option>
                             <option value="weekly">Weekly</option>
                             <option value="monthly">Monthly</option>

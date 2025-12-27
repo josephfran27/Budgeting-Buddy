@@ -178,7 +178,8 @@ function updateDisplays() {
     //update income display on budget section
     const budgetIncomeDisplay = document.querySelector('.income-display .income p');
     if(budgetIncomeDisplay) {
-        budgetIncomeDisplay.textContent = `$${budgetData.totalIncome.toFixed(2)}`;
+        const availableIncome = budgetData.totalIncome - budgetData.totalFixedExpenses;
+        budgetIncomeDisplay.textContent = `$${availableIncome.toFixed(2)}`;
     }
 
     if(futureBalanceDisplay) {
@@ -186,7 +187,7 @@ function updateDisplays() {
     }
 
     // FOR UPDATING BUDGET CHART WITH DATA
-    if(budgetChart && budgetData.totalIncome > 0) {
+    if(budgetChart && budgetData.availableIncome > 0) {
         updateBudgetAllocations();
     }
 
@@ -308,10 +309,10 @@ function addFixedExpense(e) {
     e.preventDefault();
 
     const form = e.target;
-    const amount = parseFloat(form.querySelector('expense-amount').value);
-    const description = form.querySelector('expense-title').value;
-    const category = form.querySelector('expense-category').value;
-    const recurrence = form.querySelector('expense-recurrence').value;
+    const amount = parseFloat(form.querySelector('#fixedExpenseAmount').value);
+    const description = form.querySelector('#fixedExpenseTitle').value;
+    const category = form.querySelector('#fixedExpenseCategory').value;
+    const recurrence = form.querySelector('#fixedExpenseRecurrence').value;
     let amountCalculated;
 
     //weekly pay calculated to monthly
@@ -339,9 +340,14 @@ function addFixedExpense(e) {
         date: new Date().toLocaleDateString()
     });
 
-    form.reset();
-    updateSelectColor(form.querySelector('.expense-category'));
-    updateSelectColor(form.querySelector('.expense-recurrence'));
+    //clear form after submission
+    document.querySelector('#fixedExpenseTitle').value = '';
+    document.querySelector('#fixedExpenseAmount').value = '';
+    document.querySelector('#fixedExpenseCategory').value = '';
+    document.querySelector('#fixedExpenseRecurrence').value = '';
+
+    updateSelectColor(document.querySelector('#fixedExpenseCategory'));
+    updateSelectColor(document.querySelector('#fixedExpenseRecurrence'));
 
     updateDisplays();
     displayUpdates();
@@ -352,10 +358,10 @@ function addExpense(e) {
     e.preventDefault();
 
     const form = e.target;
-    const amount = parseFloat(form.querySelector('.expense-amount').value);
-    const description = form.querySelector('.expense-title').value;
-    const category = form.querySelector('.expense-category').value;
-    const recurrence = form.querySelector('.expense-recurrence').value;
+    const amount = parseFloat(form.querySelector('#flexibleExpenseAmount').value);
+    const description = form.querySelector('#flexibleExpenseTitle').value;
+    const category = form.querySelector('#flexibleExpenseCategory').value;
+    const recurrence = form.querySelector('#flexibleExpenseRecurrence').value;
     let amountCalculated;
 
     //weekly pay calculated to monthly
@@ -372,7 +378,7 @@ function addExpense(e) {
     }
 
     budgetData.totalFlexibleExpenses += amountCalculated;
-    budgetDate.totalExpenses += amountCalculated;
+    budgetData.totalExpenses += amountCalculated;
 
     updates.push({
         type: 'Flexible Expense',
@@ -383,9 +389,14 @@ function addExpense(e) {
         date: new Date().toLocaleDateString()
     });
 
-    form.reset()
-    updateSelectColor(form.querySelector('.expense-category'));
-    updateSelectColor(form.querySelector('.expense-recurrence'));
+    //clear form after submission
+    document.querySelector('#flexibleExpenseTitle').value = '';
+    document.querySelector('#flexibleExpenseAmount').value = '';
+    document.querySelector('#flexibleExpenseCategory').value = '';
+    document.querySelector('#flexibleExpenseRecurrence').value = '';
+
+    updateSelectColor(document.querySelector('#flexibleExpenseCategory'));
+    updateSelectColor(document.querySelector('#flexibleExpenseRecurrence'));
 
     updateDisplays();
     displayUpdates();
@@ -462,20 +473,12 @@ function clearDashboardInputs(e) {
         e.preventDefault();
     }
 
-    if(balanceDisplay) {
-        balanceDisplay.value = '0.00';
-    }
-    if(incomeDisplay) {
-        incomeDisplay.value = '0.00';
-    }
-    if(expenseDisplay) {
-        expenseDisplay.value = '0.00';
-    }
-
     budgetData = {
         totalBalance: 0,
         totalIncome: 0,
         totalExpenses: 0,
+        totalFixedExpenses: 0,
+        totalFlexibleExpenses: 0
     };
 
     updates = [];
@@ -517,8 +520,14 @@ document.addEventListener('DOMContentLoaded', function() {
         incomeForm.addEventListener('submit', addIncome, updateSelectColor(incomeCategory), updateSelectColor(incomeRecurrence));
     }
 
-    if(expenseForm) {
-        expenseForm.addEventListener('submit', addExpense, updateSelectColor(expenseCategory), updateSelectColor(expenseRecurrence));
+    const fixedExpenseForm = document.getElementById('fixedExpenseForm');
+    if(fixedExpenseForm) {
+        fixedExpenseForm.addEventListener('submit', addFixedExpense);
+    }
+
+    const flexibleExpenseForm = document.getElementById('flexibleExpenseForm');
+    if(flexibleExpenseForm) {
+        flexibleExpenseForm.addEventListener('submit', addExpense);
     }
 
     if(transactionForm) {
@@ -644,10 +653,10 @@ function updateChart(newData) {
 
 //function for calculating a dollar amount for each budgeting category based on income
 function calculateBudgetAllocations() {
-    const income = budgetData.totalIncome;
+    const availableIncome = budgetData.totalIncome - budgetData.totalFixedExpenses;
 
     // edge case handling
-    if(income <= 0) {
+    if(availableIncome <= 0) {
         return {
             bills: 0,
             food: 0,
@@ -660,12 +669,12 @@ function calculateBudgetAllocations() {
 
     // get dollar amount per category according to percentage
     return {
-        bills: (income * budgetPercentages.bills) / 100,
-        food: (income * budgetPercentages.food) / 100,
-        transportation: (income * budgetPercentages.transportation) / 100,
-        social: (income * budgetPercentages.social) / 100,
-        personal: (income * budgetPercentages.personal) / 100,
-        savings: (income * budgetPercentages.savings) / 100
+        bills: (availableIncome * budgetPercentages.bills) / 100,
+        food: (availableIncome * budgetPercentages.food) / 100,
+        transportation: (availableIncome * budgetPercentages.transportation) / 100,
+        social: (availableIncome * budgetPercentages.social) / 100,
+        personal: (availableIncome * budgetPercentages.personal) / 100,
+        savings: (availableIncome * budgetPercentages.savings) / 100
     };
 }
 
