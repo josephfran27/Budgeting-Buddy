@@ -22,21 +22,46 @@ A comprehensive personal finance web application for tracking expenses, managing
 ## Screenshots
 ### Dashboard Page
 ![Dashboard Cards](./Images/dashboard-screenshots/dash1.png)
+*The main Dashboard page, containing the different cards.*
 ![Dashboard Example](./Images/dashboard-screenshots/dash2.png)
+*The "Add Income" input form section.*
 ![Dashboard History](./Images/dashboard-screenshots/dash3.png)
+*The list of the updates.*
 
 ### Budgeting Page
 ![Budget Page](./Images/budget-screenshots/budget1.png)
+*The top of the Budgeting Page, displying the income after fixed expenses and the pi chart.*
 ![Budget Templates](./Images/budget-screenshots/budget2.png)
+*The section for choosing from the budgeting templates.*
 ![Custom Budget](./Images/budget-screenshots/budget3.png)
+*The custom budgeting template section.*
 
 ### Savings Page
 ![Savings Page](./Images/savings-screenshot/savings.png)
+*The savings calculator page.*
+
+## How to Use
+
+### 1. Clone or Download the Repository
+```bash
+git clone https://github.com/yourusername/budgeting-buddy.git
+cd budgeting-buddy
+```
+
+### 2. Open the Application
+
+Simply open `index.html` in your web browser. No installation or server setup required!
+```bash
+# Using your default browser
+open index.html
+
+# Or for Windows
+start index.html
+```
 
 ## Tech Stach
-• HTML 5
-• CSS3
-• JavaScript
-• Chart.js
-
-## UI Screenshots
+- **HTML5** - Structure and content
+- **CSS3** - Styling and responsive design
+- **Vanilla JavaScript** - Application logic and interactivity
+- **Chart.js** - Interactive budget pie chart visualization
+- **SessionStorage** - Data persistence across pages
