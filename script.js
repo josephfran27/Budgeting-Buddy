@@ -328,18 +328,10 @@ function addFixedExpense(e) {
     }
 
     budgetData.totalFixedExpenses += amountCalculated;
-
-    budgetData.fixedExpenses.push({
-        type: 'Fixed Expense',
-        description: description,
-        amount: amount,
-        category: category,
-        recurrence: recurrence,
-        date: new Date().toLocaleDateString()
-    });
+    budgetData.totalExpenses += amountCalculated;
 
     updates.push({
-        type: 'Expense',
+        type: 'Fixed Expense',
         description: description,
         amount: amount,
         category: category,
@@ -379,19 +371,11 @@ function addExpense(e) {
         amountCalculated = amount;
     }
 
-    budgetData.totalExpenses += amountCalculated;
-
-    budgetData.flexibleExpenses.push({
-        type: 'Flexible Expense',
-        description: description,
-        amount: amount,
-        category: category,
-        recurrence: recurrence,
-        date: new Date().toLocaleDateString()
-    });
+    budgetData.totalFlexibleExpenses += amountCalculated;
+    budgetDate.totalExpenses += amountCalculated;
 
     updates.push({
-        type: 'Expense',
+        type: 'Flexible Expense',
         description: description,
         amount: amount,
         category: category,
