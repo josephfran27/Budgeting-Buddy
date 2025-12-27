@@ -21,17 +21,17 @@ A comprehensive personal finance web application for tracking expenses, managing
 
 ## Screenshots
 ### Dashboard Page
-./images/dashboard-screenshots/dash1.png
-./images/dashboard-screenshots/dash2.png
-./images/dashboard-screenshots/dash3.png
+![Dashboard Cards](./images/dashboard-screenshots/dash1.png)
+![Dashboard Example](./images/dashboard-screenshots/dash2.png)
+![Dashboard History](./images/dashboard-screenshots/dash3.png)
 
 ### Budgeting Page
-./images/budget-screenshots/budget1.png
-./images/budget-screenshots/budget2.png
-./images/budget-screenshots/budget3.png
+![Budget Page](./images/budget-screenshots/budget1.png)
+![Budget Templates](./images/budget-screenshots/budget2.png)
+![Custom Budget](./images/budget-screenshots/budget3.png)
 
 ### Savings Page
-./images/savings-screenshot/savings.png
+![Savings Page](./images/savings-screenshot/savings.png)
 
 ## Tech Stach
 • HTML 5
