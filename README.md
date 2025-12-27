@@ -11,13 +11,27 @@ A comprehensive personal finance web application for tracking expenses, managing
 - **Transaction Logging** - Record one-time purchases and income for an accurate balance
 - **Updates History** - View all of your activities in chronological order
 
-## Budget Planner
-• Custom Budget Creation - Build personalized budget allocations across six categories
-• Interactive Visualizations - Chart.js pie charts showing budget breakdown with dollar amounts
-• Future Balance Calculator - Project your balance over weeks, months, or years
-• Transaction History - Complete log of all financial updates with timestamps
-• Session Persistence - Data saved during browsing session
-• Responsive Design - Works seamlessly across desktop and mobile devices
+### Budget Planner
+- **Pre-Built Budgeting Templates** - Includes pre-built templates that adhere to popular budgeting strategies.
+- **Custom Budgeting Section** - Allows the user to design their own budgeting percentages to adjust to their personal needs.
+- **Interactive Visualizations** - Interactive Chart.js pie chart, showing budget breakdown with dollar amounts
+
+### Savings Calculator
+- **Future Balance Projections** - A fun tool to calculate your balance over time (weeks, months, years)
+
+## Screenshots
+### Dashboard Page
+(./images/dashboard-screenshots/dash1.png)
+(./images/dashboard-screenshots/dash2.png)
+(./images/dashboard-screenshots/dash3.png)
+
+### Budgeting Page
+(./images/budget-screenshots/budget1.png)
+(./images/budget-screenshots/budget2.png)
+(./images/budget-screenshots/budget3.png)
+
+### Savings Page
+(./images/savings-screenshot/savings.png)
 
 ## Tech Stach
 • HTML 5
